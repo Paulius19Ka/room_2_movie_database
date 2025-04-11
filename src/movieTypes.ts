@@ -24,7 +24,8 @@ export type PhotosType = {
   videos: VideosType
 }
 
-type GenresType =
+export type GenresType = [ // need to fix this !!!
+  | 'Select a genre'
   | 'Action'
   | 'Adventure'
   | 'Animation'
@@ -44,7 +45,8 @@ type GenresType =
   | 'Sports'
   | 'Thriller'
   | 'War'
-  | 'Western';
+  | 'Western'
+];
 
 export type Writer = {
   name: string, 
@@ -63,19 +65,27 @@ export type CastType = {
 }
 
 export type ReviewsType = {
-  users: number,
-  critics: number,
+  users?: number,
+  critics?: number,
   metascore: number // integer number 1-100
 }
+
+export type AgeRating = 
+  | 'Select an age Rating'
+  | 'G'
+  | 'PG'
+  | 'PG-13'
+  | 'R'
+  | 'NC-17'
 
 export type Movie = {
   id: string,
   title: string,
   releaseYear: number,
-  eirinCategory: string, // PG
+  eirinCategory: AgeRating, // PG
   length: number, // minutes
-  IMDB: IMDBInfo,
-  popularity: PopularityType,
+  IMDB?: IMDBInfo,
+  popularity?: PopularityType,
   photos: PhotosType,
   videos: VideosType,
   genres: GenresType,
