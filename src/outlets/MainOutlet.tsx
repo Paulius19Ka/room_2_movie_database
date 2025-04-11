@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from "react-router";
+import Footer from "../../src/UI/organisms/Footer";
 
 const MainOutlet = () => {
   return (
@@ -13,11 +14,7 @@ const MainOutlet = () => {
       <main>
         <Outlet />
       </main>
-      <footer>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugiat, magni?
-        </p>
-      </footer>
+      <Footer /> 
     </>
   );
 }
