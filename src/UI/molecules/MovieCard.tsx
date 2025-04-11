@@ -16,6 +16,7 @@ const StyledDiv = styled.div`
   width: 200px;
   height: 450px;
   border-radius: 10px;
+  border-top-left-radius: 0px;
 
   display: flex;
   flex-direction: column;
@@ -39,7 +40,6 @@ const StyledDiv = styled.div`
     width: 100%;
     height: 300px;
     object-fit: cover;
-    border-top-left-radius: 10px;
     border-top-right-radius: 10px;
   }
 

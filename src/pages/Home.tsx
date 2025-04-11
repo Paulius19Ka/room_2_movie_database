@@ -1,7 +1,17 @@
 import { useContext } from "react";
+import styled from "styled-components";
+
 import MovieCard from "../UI/molecules/MovieCard";
 import MoviesContext from "../contexts/MoviesContext";
 import { MovieContextTypes } from "../types";
+
+const StyledDiv = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  margin: 0 10px;
+`;
 
 const Home = () => {
 
@@ -12,7 +22,7 @@ const Home = () => {
   return (
     <section>
       <h2>Home</h2>
-      <div>
+      <StyledDiv>
         {
           movies ?
           movies.map(movie => 
@@ -23,7 +33,7 @@ const Home = () => {
           ) :
           <p>SKELETON HERE!!!!!!!!!</p>
         }
-      </div>
+      </StyledDiv>
     </section>
   );
 }
