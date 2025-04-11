@@ -77,6 +77,7 @@ export type Movie = {
   IMDB: IMDBInfo,
   popularity: PopularityType,
   photos: PhotosType,
+  videos: VideosType,
   genres: GenresType,
   description: string,
   castAndCrew: CastType,
