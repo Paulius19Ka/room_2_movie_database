@@ -3331,5 +3331,25 @@
 				"metascore": 66
 			}
 		}
+	],
+	"users": [
+		{
+			"id": "ij2he7r28k",
+			"username": "Arturas12",
+			"email": "arturas12@gmail.com",
+			"password": "kfeojihwgu",
+			"passwordText": "Labas123!",
+			"dob": "2000-01-01",
+			"role": "admin"
+		},
+		{
+			"id": "ji3rfewg78",
+			"username": "Benas34",
+			"email": "benas34@gmail.com",
+			"password": "kfeojihwgu",
+			"passwordText": "Ate345@",
+			"dob": "2002-04-04",
+			"role": "user"
+		}
 	]
 }
