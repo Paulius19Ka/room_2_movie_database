@@ -1,15 +1,13 @@
-import { Outlet } from "react-router";
+import { NavLink, Outlet } from "react-router";
 
 const MainOutlet = () => {
   return (
     <>
       <header>
         <ul>
-          <li>Home</li>
-          <li>Home</li>
-          <li>Home</li>
-          <li>Home</li>
-          <li>Home</li>
+          <li><NavLink to='/'>Home</NavLink></li>
+          <li><NavLink to='/login'>Login</NavLink></li>
+          <li><NavLink to='/register'>Register</NavLink></li>
         </ul>
       </header>
       <main>
