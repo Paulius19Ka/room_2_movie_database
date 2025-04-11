@@ -5,5 +5,6 @@ export type ChildrenProp = {
 }
 
 export type MovieContextTypes = {
-  movies: Movie[]
+  movies: Movie[],
+  addMovie: (newMovie: Movie) => void
 }
