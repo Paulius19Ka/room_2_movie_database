@@ -1,16 +1,17 @@
 import { NavLink, Outlet } from "react-router";
 import Footer from "../../src/UI/organisms/Footer";
+import Header from "../UI/organisms/Header";
 
 const MainOutlet = () => {
   return (
     <>
-      <header>
-        <ul>
-          <li><NavLink to='/'>Home</NavLink></li>
-          <li><NavLink to='/login'>Login</NavLink></li>
-          <li><NavLink to='/register'>Register</NavLink></li>
-        </ul>
-      </header>
+    < Header
+  isLoggedIn={true}
+  isAdmin={false}
+  userName="John Doe"
+  userAvatarUrl="https://i.pravatar.cc/300"
+  onThemeToggle={() => console.log("toggle theme")}
+/>
       <main>
         <Outlet />
       </main>
