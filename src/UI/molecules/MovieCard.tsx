@@ -68,7 +68,7 @@ const MovieCard = ({ data }: Props) => {
     <StyledDiv>
       <img src={data.photos.poster[0]} alt={data.title} />
       <div className="rating">
-        <span><StarIcon />{data.IMDB.totalScore}</span>
+        <span><StarIcon />{data.IMDB?.totalScore}</span>
         <StarBorderIcon /> {/* add rating functionality here */}
       </div>
       <h3>{data.title}</h3>

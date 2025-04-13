@@ -20,31 +20,8 @@ export type VideosType = {
 
 export type PhotosType = {
   poster: string[], // array of links
-  cutscenes: string[], // array of links
-  videos: VideosType
+  cutscenes: string[] // array of links
 }
-
-type GenresType =
-  | 'Action'
-  | 'Adventure'
-  | 'Animation'
-  | 'Biography'
-  | 'Comedy'
-  | 'Crime'
-  | 'Documentary'
-  | 'Drama'
-  | 'Family'
-  | 'Fantasy'
-  | 'History'
-  | 'Horror'
-  | 'Musical'
-  | 'Mystery'
-  | 'Romance'
-  | 'Sci-Fi'
-  | 'Sports'
-  | 'Thriller'
-  | 'War'
-  | 'Western';
 
 export type Writer = {
   name: string, 
@@ -63,22 +40,30 @@ export type CastType = {
 }
 
 export type ReviewsType = {
-  users: number,
-  critics: number,
+  users?: number,
+  critics?: number,
   metascore: number // integer number 1-100
 }
+
+export type AgeRating = 
+  | 'Select an age Rating'
+  | 'G'
+  | 'PG'
+  | 'PG-13'
+  | 'R'
+  | 'NC-17'
 
 export type Movie = {
   id: string,
   title: string,
   releaseYear: number,
-  eirinCategory: string, // PG
+  eirinCategory: AgeRating, // PG
   length: number, // minutes
-  IMDB: IMDBInfo,
-  popularity: PopularityType,
+  IMDB?: IMDBInfo,
+  popularity?: PopularityType,
   photos: PhotosType,
   videos: VideosType,
-  genres: GenresType,
+  genres: string[],
   description: string,
   castAndCrew: CastType,
   actors: Actor[],

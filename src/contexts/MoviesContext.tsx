@@ -25,7 +25,7 @@ const MoviesProvider = ({ children }: ChildrenProp) => {
   const [movies, dispatch] = useReducer(reducer, []);
 
   const addMovie = (newMovie: Movie) => {
-    fetch(``, {
+    fetch(`http://localhost:8080/movies`, {
       method: "POST",
       headers: {
         "Content-Type":"application/json"
