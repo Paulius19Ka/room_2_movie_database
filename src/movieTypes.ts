@@ -20,33 +20,8 @@ export type VideosType = {
 
 export type PhotosType = {
   poster: string[], // array of links
-  cutscenes: string[], // array of links
-  videos: VideosType
+  cutscenes: string[] // array of links
 }
-
-export type GenresType = [ // need to fix this !!!
-  | 'Select a genre'
-  | 'Action'
-  | 'Adventure'
-  | 'Animation'
-  | 'Biography'
-  | 'Comedy'
-  | 'Crime'
-  | 'Documentary'
-  | 'Drama'
-  | 'Family'
-  | 'Fantasy'
-  | 'History'
-  | 'Horror'
-  | 'Musical'
-  | 'Mystery'
-  | 'Romance'
-  | 'Sci-Fi'
-  | 'Sports'
-  | 'Thriller'
-  | 'War'
-  | 'Western'
-];
 
 export type Writer = {
   name: string, 
@@ -88,7 +63,7 @@ export type Movie = {
   popularity?: PopularityType,
   photos: PhotosType,
   videos: VideosType,
-  genres: GenresType,
+  genres: string[],
   description: string,
   castAndCrew: CastType,
   actors: Actor[],
