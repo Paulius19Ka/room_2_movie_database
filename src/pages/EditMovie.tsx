@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
+import { Field, Formik, Form, ErrorMessage, FieldArray } from "formik";
+import * as Yup from 'yup';
+
 import MoviesContext from "../contexts/MoviesContext";
 import { MovieContextTypes } from "../types";
 import { AgeRating, Movie } from "../movieTypes";
-import { Field, Formik, Form, ErrorMessage, FieldArray } from "formik";
 
 const EditMovie = () => {
 
@@ -72,7 +74,131 @@ const EditMovie = () => {
       critics: movie ? movie.reviews.critics : 0,
       users: movie ? movie.reviews.users : 0
     }
-  }
+  };
+
+  const validSchema = Yup.object({
+      title: Yup.string()
+        .min(5, 'Too short, <5')
+        .max(30, 'Too long, >30')
+        .required('Field is required')
+        .trim(),
+      releaseYear: Yup.number()
+        .min(1900, 'Too old, <1900')
+        .max(2040, 'Too distant, >2040')
+        .required('Field is required'),
+      eirinCategory: Yup.string()
+        .notOneOf(['Select an age Rating'], 'Must select an age rating')
+        .required('Field is required'),
+      length: Yup.number()
+        .min(1, 'Too short, <1')
+        .max(500, 'Too long, >500')
+        .required('Field is required'),
+      photos: Yup.object({
+        poster: Yup.array()
+          .of(
+            Yup.string()
+              .url('Must be a valid url')
+              .required('Field is required')
+          )
+          .min(1, 'Must have at least one poster')
+          .required('Field is required'),
+        cutscenes: Yup.array()
+          .of(
+            Yup.string()
+              .url('Must be a valid url')
+              .required('Field is required')
+          )
+          .min(1, 'Must have at least one cutscene image')
+          .required('Field is required'),
+      }),
+      videos: Yup.object({
+        trailers: Yup.array()
+          .of(
+            Yup.string()
+              .url('Must be a valid url')
+              .required('Field is required')
+          )
+          .min(1, 'Must have at least one trailer')
+          .required('Field is required'),
+        cutscenes: Yup.array()
+          .of(
+            Yup.string()
+              .url('Must be a valid url')
+              .required('Field is required')
+          )
+          .min(1, 'Must have at least one cutscene clip')
+          .required('Field is required'),
+      }),
+      genres: Yup.array()
+        .min(1, 'Must select at least one genre')
+        .required('Field is required'),
+      description: Yup.string()
+        .min(10, 'Too short, <10')
+        .max(1000, 'Too long, >1000')
+        .required('Field is required')
+        .trim(),
+      castAndCrew: Yup.object({
+        director: Yup.string()
+          .min(5, 'Too short, <5')
+          .max(30, 'Too long, >30')
+          .required('Field is required')
+          .trim(),
+        writers: Yup.array()
+          .of(
+            Yup.object({
+              name: Yup.string()
+                .min(5, 'Too short, <5')
+                .max(30, 'Too long, >30')
+                .required('Field is required')
+                .trim(),
+              role: Yup.string()
+                .min(5, 'Too short, <5')
+                .max(30, 'Too long, >30')
+                .required('Field is required')
+                .trim(),
+            })
+          )
+          .min(1, 'Must have at least one writer')
+          .required('Field is required')
+      }),
+      actors: Yup.array()
+        .of(
+          Yup.object({
+            name: Yup.string()
+              .min(5, 'Too short, <5')
+              .max(30, 'Too long, >30')
+              .required('Field is required')
+              .trim(),
+            character: Yup.array()
+              .of(
+                Yup.string()
+                  .min(5, 'Too short, <5')
+                  .max(30, 'Too long, >30')
+                  .required('Field is required')
+                  .trim()
+              )
+              .min(1, 'Must have at least one role')
+              .required('Field is required'),
+            actorPhoto: Yup.string()
+              .url('Must be a valid url')
+              .required('Field is required'),
+          })
+        )
+        .min(1, 'Must have at least one actor')
+        .required('Field is required'),
+      reviews: Yup.object({
+        metascore: Yup.number()
+          .min(0, 'Too low, <0')
+          .max(100, 'Too high, >100')
+          .required('Field is required'),
+        critics: Yup.number()
+          .min(0, 'Too low, <0')
+          .required('Field is required'),
+        users: Yup.number()
+          .min(0, 'Too low, <0')
+          .required('Field is required'),
+      })
+    })
   
   useEffect(() => {
     if(id){
@@ -90,7 +216,7 @@ const EditMovie = () => {
       editMovie(id, values)
       navigate(`/${id}`);
     }
-  }
+  };
 
   return (
     <section>
@@ -102,7 +228,7 @@ const EditMovie = () => {
           <Formik 
             initialValues={initialValues}
             onSubmit={submitHandler}
-            // validationSchema={validSchema}
+            validationSchema={validSchema}
           >
             <Form>
               <div>
@@ -244,6 +370,7 @@ const EditMovie = () => {
               </div>
               {/* checkbox for genres */}
               <div>
+                <label htmlFor="genres">Genres:</label>
                 {
                   movieGenres ?
                   movieGenres.map((genre, i) => 
@@ -423,7 +550,7 @@ const EditMovie = () => {
                 <ErrorMessage name='reviews.users' component='p' />
               </div>
               {/* <Field type='submit' value='Add' /> */}
-              <button type='submit'>Add</button>
+              <button type='submit'>Update</button>
             </Form>
           </Formik>
         </div> :

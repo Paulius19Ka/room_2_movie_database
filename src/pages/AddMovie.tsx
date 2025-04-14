@@ -149,7 +149,7 @@ const AddMovie = () => {
       .required('Field is required'),
     description: Yup.string()
       .min(10, 'Too short, <10')
-      .max(100, 'Too long, >100')
+      .max(1000, 'Too long, >1000')
       .required('Field is required')
       .trim(),
     castAndCrew: Yup.object({
@@ -367,6 +367,7 @@ const AddMovie = () => {
           </div>
           {/* checkbox for genres */}
           <div>
+            <label htmlFor="genres">Genres:</label>
             {
               movieGenres ?
               movieGenres.map((genre, i) => 
