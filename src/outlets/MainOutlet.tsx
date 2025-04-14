@@ -1,7 +1,8 @@
-import { NavLink, Outlet } from "react-router";
+import { Outlet } from "react-router";
 import styled from "styled-components";
 
 import Footer from "../../src/UI/organisms/Footer";
+import Header from "../UI/organisms/Header";
 
 const StyledMain = styled.main`
   min-height: calc(100vh - 314.34px - 128px);
@@ -14,21 +15,13 @@ const StyledMain = styled.main`
 const MainOutlet = () => {
   return (
     <>
-      <header>
-        <ul>
-          <li><NavLink to='/'>Home</NavLink></li>
-          <li><NavLink to='/add'>Add</NavLink></li>
-          <li><NavLink to='/login'>Login</NavLink></li>
-          <li><NavLink to='/register'>Register</NavLink></li>
-          <li></li>
-        </ul>
-      </header>
+      <Header onThemeToggle={() => {}} />
       <StyledMain>
         <Outlet />
       </StyledMain>
-      <Footer /> 
+      <Footer />
     </>
   );
 }
- 
+
 export default MainOutlet;
