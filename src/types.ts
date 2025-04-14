@@ -11,3 +11,25 @@ export type MovieContextTypes = {
   deleteMovie: (id: Movie["id"]) => void,
   findMovie: (id: Movie["id"]) => Movie | string
 }
+
+export type User = {
+  id: string,
+  username: string,
+  email: string,
+  password: string,
+  passwordText: string,
+  dob: string,
+  role: "admin" | "user"
+};
+
+export type UsersReducerActionTypes =
+  { type: 'setData', data: User[] } |
+  { type: 'addUser', newUser: User };
+
+export type UsersContextTypes = {
+  users: User[],
+  loggedInUser: User | null,
+  setLoggedInUser: React.Dispatch<React.SetStateAction<User | null>>,
+  dispatch: React.ActionDispatch<[action: UsersReducerActionTypes]>
+};
+
