@@ -80,6 +80,15 @@ const MoviesProvider = ({ children }: ChildrenProp) => {
       type: 'deleteMovie',
       id
     });
+  };
+
+  const findMovie = (id: Movie['id']): Movie | string => {
+    const foundMovie = movies.find( movie => movie.id === id);
+    if(foundMovie){
+      return foundMovie;
+    } else {
+      return 'Error: Movie not found';
+    }
   }
 
   useEffect(() => {
@@ -97,7 +106,8 @@ const MoviesProvider = ({ children }: ChildrenProp) => {
         movies,
         addMovie,
         editMovie,
-        deleteMovie
+        deleteMovie,
+        findMovie
       }}
     >
       { children }

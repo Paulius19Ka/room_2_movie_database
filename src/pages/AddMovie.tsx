@@ -6,6 +6,7 @@ import { AgeRating, Movie } from '../movieTypes';
 import styled from 'styled-components';
 import MoviesContext from '../contexts/MoviesContext';
 import { MovieContextTypes } from '../types';
+import { useNavigate } from 'react-router';
 
 type InitialValuesType = Movie;
 
@@ -53,6 +54,7 @@ const StyledSection = styled.section`
 const AddMovie = () => {
 
   const { addMovie } = useContext(MoviesContext) as MovieContextTypes;
+  const navigate = useNavigate();
 
   const initialValues: InitialValuesType = {
     id: '',
@@ -82,11 +84,11 @@ const AddMovie = () => {
     }
   }
 
-  const submitHandler = (values: InitialValuesType, { resetForm }: { resetForm: () => void }) => {
+  const submitHandler = (values: InitialValuesType) => {
     values.id = genID();
     // console.log(values);
     addMovie(values);
-    resetForm();
+    navigate('/');
   }
 
   const validSchema = Yup.object({
