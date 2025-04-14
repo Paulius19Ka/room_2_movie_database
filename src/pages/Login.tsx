@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import { useState, useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate, Link } from 'react-router';
 import bcrypt from 'bcryptjs';
 import * as Yup from 'yup';
@@ -26,27 +26,28 @@ const Login = () => {
         .trim(),
       password: Yup.string()
         .matches(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/,
-          'Password must contain at least one: lower case character, upper case character, number, special symbol AND must be between 8 and 20 symbols length.'
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{7,20}$/,
+          'Password must contain at least one: lower case character, upper case character, number, special symbol AND must be between 7 and 20 symbols length.'
         )
         .required('field cannot be empty')
         .trim('empty spaces are ignored')
 
     }),
     onSubmit: (values) => {
-      console.log(values);
-      const foundUser = users.find(user =>
-        user.email === values.email &&
-        bcrypt.compareSync(user.password, values.password)
-      );
-      if (foundUser) {
-        if (values.stayLoggedIn) {
-          localStorage.setItem('loggedInUser', JSON.stringify(foundUser));
+      if (users) {
+        const foundUser = users.find(user =>
+          user.email === values.email &&
+          bcrypt.compareSync(values.password, user.password)
+        );
+        if (foundUser) {
+          if (values.stayLoggedIn) {
+            localStorage.setItem('loggedInUser', JSON.stringify(foundUser));
+          }
+          setLoggedInUser(foundUser);
+          navigate('/');
+        } else {
+          setError('No such user, wrong username or password')
         }
-        setLoggedInUser(foundUser);
-        navigate('/');
-      } else {
-        setError('No such user, wrong username or password')
       }
     }
   })
