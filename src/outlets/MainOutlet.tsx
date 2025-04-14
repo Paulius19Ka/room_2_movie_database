@@ -1,20 +1,30 @@
 import { NavLink, Outlet } from "react-router";
+import styled from "styled-components";
+
 import Footer from "../../src/UI/organisms/Footer";
 import Header from "../UI/organisms/Header";
+
+const StyledMain = styled.main`
+  min-height: calc(100vh - 314.34px - 128px);
+
+  @media (min-width: 1024px) {
+    min-height: calc(100vh - 335.95px - 128px);
+  }
+`;
 
 const MainOutlet = () => {
   return (
     <>
-    < Header
-  isLoggedIn={true}
-  isAdmin={false}
-  userName="John Doe"
-  userAvatarUrl="https://i.pravatar.cc/300"
-  onThemeToggle={() => console.log("toggle theme")}
-/>
+      <header>
+        <ul>
+          <li><NavLink to='/'>Home</NavLink></li>
+          <li><NavLink to='/login'>Login</NavLink></li>
+          <li><NavLink to='/register'>Register</NavLink></li>
+        </ul>
+      </header>
       <main>
         <Outlet />
-      </main>
+      </StyledMain>
       <Footer /> 
     </>
   );
