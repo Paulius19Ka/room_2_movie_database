@@ -1,5 +1,8 @@
 import styled from "styled-components";
-import { Link } from "react-router";
+import { NavLink as RouterLink } from "react-router";
+import { useContext } from "react";
+import UsersContext from "../../contexts/UsersContext";
+// import { User } from "../../types";
 
 const HeaderWrapper = styled.header`
   background-color: #121212;
@@ -32,7 +35,7 @@ const MobileSection = styled.div`
   }
 `;
 
-const Logo = styled(Link)`
+const Logo = styled(RouterLink)`
   background-color: #f5c518;
   color: black;
   font-weight: bold;
@@ -42,8 +45,17 @@ const Logo = styled(Link)`
   border-radius: 4px;
 `;
 
-const FlexGrow = styled.div`
-  flex-grow: 1;
+const NavLink = styled(RouterLink)`
+  color: white;
+  text-decoration: none;
+
+  &:visited {
+    color: white;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const IconButton = styled.button`
@@ -61,7 +73,11 @@ const IconButton = styled.button`
   }
 `;
 
-const UseAppButton = styled(Link)`
+const FlexGrow = styled.div`
+  flex-grow: 1;
+`;
+
+const UseAppButton = styled(RouterLink)`
   background-color: #f5c518;
   color: black;
   padding: 0.3rem 0.8rem;
@@ -72,30 +88,27 @@ const UseAppButton = styled(Link)`
   white-space: nowrap;
 `;
 
-// 👇 Stiliai visiems nuorodoms (Watchlist, Sign In, Register)
-const NavLink = styled(Link)`
-  color: white;
-  text-decoration: none;
+const Avatar = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 
-  &:visited {
-    color: white;
-  }
-
-  &:hover {
-    text-decoration: underline;
+  img {
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
   }
 `;
 
-type Props = {
-  isLoggedIn: boolean;
-  isAdmin?: boolean;
-  onThemeToggle: () => void;
-};
+const Header = ({ onThemeToggle }: { onThemeToggle: () => void }) => {
+  const { loggedInUser } = useContext(UsersContext)!;
 
-const Header = ({ isLoggedIn, isAdmin, onThemeToggle }: Props) => {
+  const isLoggedIn = !!loggedInUser;
+  // const isAdmin = loggedInUser?.role === "admin";
+
   return (
     <HeaderWrapper>
-      {/* Desktop Header */}
+      {/* Desktop */}
       <DesktopSection>
         <Logo to="/">IMDb</Logo>
         <span>☰ Menu</span>
@@ -128,7 +141,7 @@ const Header = ({ isLoggedIn, isAdmin, onThemeToggle }: Props) => {
             style={{
               border: "none",
               padding: "0 1rem",
-              width: "600px",
+              width: "540px",
               backgroundColor: "white",
               color: "black",
               fontSize: "1rem",
@@ -144,33 +157,40 @@ const Header = ({ isLoggedIn, isAdmin, onThemeToggle }: Props) => {
           style={{ height: "50px", cursor: "pointer" }}
         />
 
-        {/* Watchlist */}
+        {/* Admin: AddNewMovie */}
+        {/* {isLoggedIn && isAdmin && <NavLink to="/add">➕ AddNewMovie</NavLink>} */}
+        <NavLink to="/add">➕ AddNewMovie</NavLink>
+        {/* User or guest: Watchlist */}
+        {/* {!isAdmin && (
+          <NavLink to={isLoggedIn ? "/user" : "/login"}>📄 Watchlist</NavLink>
+        )} */}
         <NavLink to={isLoggedIn ? "/user" : "/login"}>📄 Watchlist</NavLink>
-
-        {/* Sign In / Register (tik jei neprisijungęs) */}
-        {true && (
+        {/* Guest: Sign In / Register */}
+        {!isLoggedIn ? (
           <>
             <NavLink to="/login">Sign In</NavLink>
             <NavLink to="/register">Register</NavLink>
           </>
+        ) : (
+          <Avatar>
+            <img src="https://i.pravatar.cc/150?u=user" alt="avatar" />
+            <span>{loggedInUser.username}</span>
+          </Avatar>
         )}
 
         <IconButton onClick={onThemeToggle}>🌓</IconButton>
       </DesktopSection>
 
-      {/* Mobile Header */}
+      {/* Mobile */}
       <MobileSection>
-        {/* ☰ burger */}
         <IconButton>
           <span style={{ fontSize: "1.4rem" }}>☰</span>
         </IconButton>
 
-        {/* IMDb logo */}
         <Logo to="/">IMDb</Logo>
 
         <FlexGrow />
 
-        {/* 🔍 search icon */}
         <IconButton>
           <img
             src="https://img.icons8.com/ios-glyphs/30/ffffff/search--v1.png"
@@ -178,10 +198,8 @@ const Header = ({ isLoggedIn, isAdmin, onThemeToggle }: Props) => {
           />
         </IconButton>
 
-        {/* Tik Sign In */}
         <NavLink to="/login">Sign In</NavLink>
 
-        {/* Use App */}
         <UseAppButton to="/app">Use App</UseAppButton>
       </MobileSection>
     </HeaderWrapper>
@@ -189,3 +207,4 @@ const Header = ({ isLoggedIn, isAdmin, onThemeToggle }: Props) => {
 };
 
 export default Header;
+

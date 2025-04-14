@@ -17,7 +17,7 @@ const MainOutlet = () => {
     <>
     
     <header>
-      <Header isLoggedIn={false} onThemeToggle={() => {}}/>
+    <Header onThemeToggle={() => {}} />
         <ul>
           <li><NavLink to='/'>Home</NavLink></li>
           <li><NavLink to='/add'>Add</NavLink></li>
