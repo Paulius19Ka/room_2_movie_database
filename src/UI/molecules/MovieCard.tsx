@@ -3,6 +3,7 @@ import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
+import EditIcon from '@mui/icons-material/Edit';
 
 import { Movie } from "../../movieTypes";
 import { Link } from "react-router";
@@ -75,7 +76,8 @@ const MovieCard = ({ data }: Props) => {
       <button>+ Watchlist</button>
       <div className="info">
         <Link to={data.videos.trailers[0]}><PlayArrowIcon />Trailer</Link>
-        <Link to="/MOREINFOPAGEHERE"><InfoOutlineIcon /></Link> {/* add link to specific page */}
+        <Link to={`/${data.id}`}><InfoOutlineIcon /></Link> {/* add link to specific page */}
+        <Link to={`/edit/${data.id}`}><EditIcon /></Link>
       </div>
     </StyledDiv>
   );
