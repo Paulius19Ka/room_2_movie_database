@@ -10,7 +10,7 @@ const reducer = (state: User[], action: UsersReducerActionTypes): User[] => {
             fetch(`http://localhost:8080/users`, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application.json"
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify(action.newUser)
             })
