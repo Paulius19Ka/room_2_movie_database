@@ -3,9 +3,61 @@ import { useContext, useState } from 'react';
 import { useNavigate, Link } from 'react-router';
 import bcrypt from 'bcryptjs';
 import * as Yup from 'yup';
+import styled from 'styled-components';
 
 import UsersContext from '../contexts/UsersContext';
 import { UsersContextTypes } from '../types';
+
+const StyledLogin = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  >h2 {
+    text-align: center;
+    color: yellow;
+  }
+
+  >form {
+    display: grid;
+    flex-direction: column;
+    align-items: flex-start;
+    color: yellow;
+    width: 300px;
+
+    input[type="text"],
+    input[type="password"],
+    input[type="submit"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px;
+    }
+    
+    >div {
+      margin-bottom: 10px;
+
+      >label.loggedIn {
+        font-size: 12px;
+      }
+    }
+
+    >input[type="submit"] {
+      color: yellow;
+    }
+
+  }
+  > a {
+    margin-top: 12px;
+    color: yellow;
+    font-size: 14px;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: underline;
+      color: gold;
+    }
+  }
+`
 
 const Login = () => {
 
@@ -53,13 +105,13 @@ const Login = () => {
   })
 
   return (
-    <section>
+    <StyledLogin>
       <h2>Login</h2>
       <form onSubmit={formik.handleSubmit}>
         <div>
           <label
             htmlFor="email"
-          >Email:</label>
+          >Email: </label>
           <input
             type="text"
             name='email' id='email'
@@ -76,7 +128,7 @@ const Login = () => {
         <div>
           <label
             htmlFor="password"
-          >Password:</label>
+          >Password: </label>
           <input
             type="password"
             name='password' id='password'
@@ -97,7 +149,7 @@ const Login = () => {
             checked={formik.values.stayLoggedIn}
             onChange={formik.handleChange}
           />
-          <label htmlFor="stayLoggedIn">Stay Logged In</label>
+          <label htmlFor="stayLoggedIn" className='loggedIn'>Stay Logged In</label>
         </div>
         <input type="submit" value="Login" />
       </form>
@@ -105,7 +157,7 @@ const Login = () => {
         error && <p>{error}</p>
       }
       <Link to="/register">Don't have an account yet? Go create one.</Link>
-    </section>
+    </StyledLogin>
   );
 }
 
