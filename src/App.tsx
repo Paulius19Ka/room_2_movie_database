@@ -4,6 +4,7 @@ import MainOutlet from "./outlets/MainOutlet"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Home from "./pages/Home"
+import AddMovie from "./pages/AddMovie"
 
 const App = () => {
 
@@ -15,7 +16,7 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="" element={<MainOutlet />}>
           <Route index element={<Home />} />
-          <Route />
+          <Route path="/add" element={<AddMovie />} />
         </Route>
       </Routes>
     </>

@@ -3330,6 +3330,82 @@
 				"critics": 453,
 				"metascore": 66
 			}
+		},
+		{
+			"id": "6529089b-2e3c-43d1-a21f-7e0daccae3b4",
+			"title": "Snow White",
+			"releaseYear": 2025,
+			"eirinCategory": "PG",
+			"length": 111,
+			"photos": {
+				"poster": [
+					"https://m.media-amazon.com/images/M/MV5BY2UwOGUxMzEtMzEyZi00NjEwLTkxOTMtYTljOWEzYjYyMWNjXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+					"https://image.tmdb.org/t/p/original/oLxWocqheC8XbXbxqJ3x422j9PW.jpg",
+					"https://posterspy.com/wp-content/uploads/2025/01/EvilQueen.jpg"
+				],
+				"cutscenes": [
+					"https://m.media-amazon.com/images/M/MV5BZjc5MDlmMjMtYzZkYy00NzgwLWJmMzAtNmJlNjg4MzU4NjI0XkEyXkFqcGc@._V1_.jpg",
+					"https://static01.nyt.com/images/2025/03/20/multimedia/20cul-snowwhite-review-wtvl/20cul-snowwhite-review-wtvl-mediumSquareAt3X.jpg"
+				]
+			},
+			"videos": {
+				"trailers": [
+					"https://www.youtube.com/watch?v=iV46TJKL8cU",
+					"https://www.youtube.com/watch?v=tezOHg9BTzc"
+				],
+				"cutscenes": [
+					"https://www.youtube.com/watch?v=qkAjPl_SFqA",
+					"https://www.youtube.com/watch?v=DIreryGvSvU"
+				]
+			},
+			"genres": [
+				"Adventure",
+				"Family",
+				"Musical",
+				"Fantasy"
+			],
+			"description": "A princess joins forces with seven dwarfs and a group of rebels to liberate her kingdom from her cruel stepmother the Evil Queen.",
+			"castAndCrew": {
+				"director": " Marc Webb",
+				"writers": [
+					{
+						"name": "Erin Cressida Wilson",
+						"role": "Screnplay"
+					},
+					{
+						"name": "The Brothers Grimm",
+						"role": "Fairy Tale"
+					}
+				]
+			},
+			"actors": [
+				{
+					"name": "Rachel Zegler",
+					"character": [
+						" Snow White"
+					],
+					"actorPhoto": "https://assets.vogue.com/photos/5fb84fa4bdddef8a81d06164/4:3/w_4348,h_3261,c_limit/VO1220_WestSideStory_01.jpg"
+				},
+				{
+					"name": " Gal Gadot",
+					"character": [
+						" Evil Queen"
+					],
+					"actorPhoto": "https://upload.wikimedia.org/wikipedia/commons/3/38/Gal_Gadot_by_Gage_Skidmore_3.jpg"
+				},
+				{
+					"name": "Andrew Burnap",
+					"character": [
+						" Jonathan"
+					],
+					"actorPhoto": "https://m.media-amazon.com/images/M/MV5BY2MxNjQ5ZWYtMjhhZi00ZWQ3LTllNTQtZWU4ZTZmZGFiNWM5XkEyXkFqcGc@._V1_.jpg"
+				}
+			],
+			"reviews": {
+				"metascore": 50,
+				"critics": 51,
+				"users": 1487
+			}
 		}
 	],
 	"users": [
