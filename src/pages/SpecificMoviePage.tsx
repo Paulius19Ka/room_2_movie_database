@@ -94,7 +94,7 @@ const StyledGeneralInfo = styled.div`
     > img{
       border-radius: 15px;
       width: 100px;
-      height 250px; 
+      height: 250px; 
     }
     
     > section{

@@ -214,7 +214,8 @@ const EditMovie = () => {
     // console.log(values);
     if(id){
       editMovie(id, values)
-      navigate(`/${id}`);
+      // navigate(`/${id}`);
+      navigate(`/`);
     }
   };
 
@@ -228,7 +229,7 @@ const EditMovie = () => {
           <Formik 
             initialValues={initialValues}
             onSubmit={submitHandler}
-            validationSchema={validSchema}
+            // validationSchema={validSchema}
           >
             <Form>
               <div>
@@ -282,7 +283,7 @@ const EditMovie = () => {
                         arrayHelpers.form.values.photos.poster.map((_: string, i: number) => (
                           <div key={i}>
                             <Field
-                              id={`photos.poster.${i}`} name={`photos.poster.${i}`}
+                              id={`photos.poster.${i}`} name={`photos.poster[${i}]`}
                               placeholder='Url of a picture...'
                               type='url'
                             />
@@ -306,7 +307,7 @@ const EditMovie = () => {
                         arrayHelpers.form.values.photos.cutscenes.map((_: string, i: number) => (
                           <div key={i}>
                             <Field
-                              id={`photos.cutscenes.${i}`} name={`photos.cutscenes.[${i}]`}
+                              id={`photos.cutscenes.${i}`} name={`photos.cutscenes[${i}]`}
                               placeholder='Url of a picture...'
                               type='url'
                             />
@@ -330,7 +331,7 @@ const EditMovie = () => {
                         arrayHelpers.form.values.videos.trailers.map((_: string, i: number) => (
                           <div key={i}>
                             <Field
-                              id={`videos.trailers.${i}`} name={`videos.trailers.[${i}]`}
+                              id={`videos.trailers.${i}`} name={`videos.trailers[${i}]`}
                               placeholder='Url of a video...'
                               type='url'
                             />
@@ -354,7 +355,7 @@ const EditMovie = () => {
                         arrayHelpers.form.values.videos.cutscenes.map((_: string, i: number) => (
                           <div key={i}>
                             <Field
-                              id={`videos.cutscenes.${i}`} name={`videos.cutscenes.[${i}]`}
+                              id={`videos.cutscenes.${i}`} name={`videos.cutscenes[${i}]`}
                               placeholder='Url of a video...'
                               type='url'
                             />
@@ -551,6 +552,7 @@ const EditMovie = () => {
               </div>
               {/* <Field type='submit' value='Add' /> */}
               <button type='submit'>Update</button>
+              <button type='button'>Delete</button>
             </Form>
           </Formik>
         </div> :
