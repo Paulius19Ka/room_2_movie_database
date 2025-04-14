@@ -3337,19 +3337,29 @@
 			"id": "ij2he7r28k",
 			"username": "Arturas12",
 			"email": "arturas12@gmail.com",
-			"password": "kfeojihwgu",
+			"password": "$2b$10$VJtUMFfvqXIAjB9Rqyt8lOHR3kZU1Q2Mu94HY/cOBHXTQ0iDf6cTO",
 			"passwordText": "Labas123!",
 			"dob": "2000-01-01",
-			"role": "admin"
+			"role": "admin",
+			"watchlistItems": [
+				"3",
+				"7",
+				"12"
+			]
 		},
 		{
 			"id": "ji3rfewg78",
 			"username": "Benas34",
 			"email": "benas34@gmail.com",
-			"password": "kfeojihwgu",
+			"password": "$2b$10$3HNPm.jVJMZ/ADzzgSoyAumBoEalxW5fRe5a5GLrZuWfGjJrtfR2K",
 			"passwordText": "Ate345@",
 			"dob": "2002-04-04",
-			"role": "user"
+			"role": "user",
+			"watchlistItems": [
+				"2",
+				"4",
+				"9"
+			]
 		}
 	]
 }
