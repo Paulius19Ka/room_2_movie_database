@@ -36,7 +36,8 @@ export type Actor = {
 
 export type CastType = {
   director: string,
-  writers: Writer[]
+  writers: Writer[],
+  actors: Actor[]
 }
 
 export type ReviewsType = {
@@ -66,6 +67,5 @@ export type Movie = {
   genres: string[],
   description: string,
   castAndCrew: CastType,
-  actors: Actor[],
   reviews: ReviewsType
 }

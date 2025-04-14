@@ -3,14 +3,14 @@ import './index.css';
 import App from './App.tsx';
 import { BrowserRouter } from 'react-router';
 import { MoviesProvider } from './contexts/MoviesContext.tsx';
-import { UsersProvider } from './contexts/UsersContext.tsx';
+import { UsersProvider } from "./contexts/UsersContext";
 
 createRoot(document.getElementById('root') as HTMLDivElement).render(
-  <MoviesProvider>
-    <UsersProvider>
+  <UsersProvider>
+    <MoviesProvider>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </UsersProvider>
-  </MoviesProvider>
+    </MoviesProvider>
+  </UsersProvider>
 )
