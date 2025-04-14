@@ -15,14 +15,18 @@ const StyledMain = styled.main`
 const MainOutlet = () => {
   return (
     <>
-      <header>
+    
+    <header>
+      <Header isLoggedIn={false} onThemeToggle={() => {}}/>
         <ul>
           <li><NavLink to='/'>Home</NavLink></li>
+          <li><NavLink to='/add'>Add</NavLink></li>
           <li><NavLink to='/login'>Login</NavLink></li>
           <li><NavLink to='/register'>Register</NavLink></li>
         </ul>
-      </header>
-      <main>
+        </header>
+      
+      <StyledMain>
         <Outlet />
       </StyledMain>
       <Footer /> 
