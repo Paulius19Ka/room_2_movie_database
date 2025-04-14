@@ -66,9 +66,9 @@ const EditMovie = () => {
     description: movie ? movie.description : '',
     castAndCrew: {
       director: movie ? movie.castAndCrew.director : '',
-      writers: movie ? movie.castAndCrew.writers : []
+      writers: movie ? movie.castAndCrew.writers : [],
+      actors: movie ? movie.castAndCrew.actors : []
     },
-    actors: movie ? movie.actors : [],
     reviews: {
       metascore: movie ? movie.reviews.metascore : 0,
       critics: movie ? movie.reviews.critics : 0,
@@ -159,33 +159,33 @@ const EditMovie = () => {
             })
           )
           .min(1, 'Must have at least one writer')
+          .required('Field is required'),
+        actors: Yup.array()
+          .of(
+            Yup.object({
+              name: Yup.string()
+                .min(5, 'Too short, <5')
+                .max(30, 'Too long, >30')
+                .required('Field is required')
+                .trim(),
+              character: Yup.array()
+                .of(
+                  Yup.string()
+                    .min(5, 'Too short, <5')
+                    .max(30, 'Too long, >30')
+                    .required('Field is required')
+                    .trim()
+                )
+                .min(1, 'Must have at least one role')
+                .required('Field is required'),
+              actorPhoto: Yup.string()
+                .url('Must be a valid url')
+                .required('Field is required'),
+            })
+          )
+          .min(1, 'Must have at least one actor')
           .required('Field is required')
       }),
-      actors: Yup.array()
-        .of(
-          Yup.object({
-            name: Yup.string()
-              .min(5, 'Too short, <5')
-              .max(30, 'Too long, >30')
-              .required('Field is required')
-              .trim(),
-            character: Yup.array()
-              .of(
-                Yup.string()
-                  .min(5, 'Too short, <5')
-                  .max(30, 'Too long, >30')
-                  .required('Field is required')
-                  .trim()
-              )
-              .min(1, 'Must have at least one role')
-              .required('Field is required'),
-            actorPhoto: Yup.string()
-              .url('Must be a valid url')
-              .required('Field is required'),
-          })
-        )
-        .min(1, 'Must have at least one actor')
-        .required('Field is required'),
       reviews: Yup.object({
         metascore: Yup.number()
           .min(0, 'Too low, <0')
@@ -454,39 +454,39 @@ const EditMovie = () => {
               </div>
               {/* actors input fields */}
               <div>
-                <label htmlFor="actors">Actors:</label>
+                <label htmlFor="castAndCrew.actors">Actors:</label>
                 <FieldArray
-                  name="actors"
+                  name="castAndCrew.actors"
                   render={arrayHelpers => (
                     <>
                       {
-                        arrayHelpers.form.values.actors.map((_: string, i: number) => (
+                        arrayHelpers.form.values.castAndCrew.actors?.map((_: string, i: number) => (
                           <div key={i}>
                             <div>
-                              <label htmlFor={`actors[${i}].name`}>Name:</label>
+                              <label htmlFor={`castAndCrew.actors[${i}].name`}>Name:</label>
                               <Field
-                                id={`actors[${i}].name`}
-                                name={`actors[${i}].name`}
+                                id={`castAndCrew.actors[${i}].name`}
+                                name={`castAndCrew.actors[${i}].name`}
                                 placeholder="Name of the actor..."
                                 type="text"
                               />
                             </div>
                             <div>
-                              <label htmlFor={`actors[${i}].character`}>Character:</label>
+                              <label htmlFor={`castAndCrew.actors[${i}].character`}>Character:</label>
                               <FieldArray
-                                name={`actors[${i}].character`}
+                                name={`castAndCrew.actors[${i}].character`}
                                 render={charHelpers => (
                                   <>
                                     {
-                                      charHelpers.form.values.actors[i]?.character?.map((_: string, j: number) => (
+                                      charHelpers.form.values.castAndCrew.actors[i]?.character?.map((_: string, j: number) => (
                                         <div key={j}>
                                           <Field
-                                            id={`actors[${i}].character[${j}]`}
-                                            name={`actors[${i}].character[${j}]`}
+                                            id={`castAndCrew.actors[${i}].character[${j}]`}
+                                            name={`castAndCrew.actors[${i}].character[${j}]`}
                                             placeholder="Name of the character..."
                                             type="text"
                                           />
-                                          <ErrorMessage name={`actors[${i}].character[${j}]`} component="p" />
+                                          <ErrorMessage name={`castAndCrew.actors[${i}].character[${j}]`} component="p" />
                                           <button type="button" onClick={() => charHelpers.remove(j)}>-</button>
                                         </div>
                                       ))
@@ -497,10 +497,10 @@ const EditMovie = () => {
                               />
                             </div>
                             <div>
-                              <label htmlFor={`actors[${i}].actorPhoto`}>Photo:</label>
+                              <label htmlFor={`castAndCrew.actors[${i}].actorPhoto`}>Photo:</label>
                               <Field
-                                id={`actors[${i}].actorPhoto`}
-                                name={`actors[${i}].actorPhoto`}
+                                id={`castAndCrew.actors[${i}].actorPhoto`}
+                                name={`castAndCrew.actors[${i}].actorPhoto`}
                                 placeholder="Photo url..."
                                 type="url"
                               />
@@ -520,7 +520,7 @@ const EditMovie = () => {
                     </>
                   )}
                 />
-                <ErrorMessage name="actors" component="p" />
+                <ErrorMessage name="castAndCrew.actors" component="p" />
               </div>
               <div>
                 <label htmlFor="reviews.metascore">Metascore:</label>
