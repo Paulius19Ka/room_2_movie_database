@@ -19,9 +19,9 @@ const MainOutlet = () => {
       <StyledMain>
         <Outlet />
       </StyledMain>
-      <Footer /> 
+      <Footer />
     </>
   );
 }
- 
+
 export default MainOutlet;

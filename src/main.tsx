@@ -7,10 +7,10 @@ import { UsersProvider } from "./contexts/UsersContext";
 
 createRoot(document.getElementById('root') as HTMLDivElement).render(
   <UsersProvider>
-  <MoviesProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </MoviesProvider>
-</UsersProvider>
+    <MoviesProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </MoviesProvider>
+  </UsersProvider>
 )

@@ -10,7 +10,7 @@ const reducer = (state: User[], action: UsersReducerActionTypes): User[] => {
             fetch(`http://localhost:8080/users`, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application.json"
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify(action.newUser)
             })
@@ -30,13 +30,15 @@ const UsersProvider = ({ children }: ChildrenProp) => {
     useEffect(() => {
         fetch(`http://localhost:8080/users`)
             .then(res => res.json())
-            .then((data: User[]) => {
+            .then((data: User[]) =>
                 dispatch({
                     type: 'setData',
                     data: data
-                });
-                setLoggedInUser(null);
-            })
+                }))
+        const foundUser = localStorage.getItem('loggedInUser');
+        if (foundUser) {
+            setLoggedInUser(JSON.parse(foundUser));
+        }
     }, []);
 
     return (
