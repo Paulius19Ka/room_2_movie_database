@@ -6,7 +6,7 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import EditIcon from '@mui/icons-material/Edit';
 
 import { Movie } from "../../movieTypes";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useContext } from "react";
 import UsersContext from "../../contexts/UsersContext";
 import { UsersContextTypes } from "../../types";
@@ -70,6 +70,7 @@ const StyledDiv = styled.div`
 const MovieCard = ({ data }: Props) => {
 
   const { loggedInUser } = useContext(UsersContext) as UsersContextTypes;
+  const navigate = useNavigate();
 
   return (
     <StyledDiv>
@@ -79,9 +80,13 @@ const MovieCard = ({ data }: Props) => {
         <StarBorderIcon /> {/* add rating functionality here */}
       </div>
       <h3>{data.title}</h3>
-      <button>+ Watchlist</button>
+      {
+        loggedInUser ?
+        <button>+ Watchlist</button> :
+        <button onClick={() => navigate('/login')}>+ Watchlist</button>
+      }
       <div className="info">
-        <Link to={data.videos.trailers[0]}><PlayArrowIcon />Trailer</Link>
+        <Link to={data.videos.trailers[0]} target="_blank"><PlayArrowIcon />Trailer</Link>
         <Link to={`${data.id}`}><InfoOutlineIcon /></Link>
         {
           loggedInUser?.role === 'admin' ?
