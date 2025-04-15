@@ -74,15 +74,15 @@ const Login = () => {
     validationSchema: Yup.object({
       email: Yup.string()
         .email()
-        .required('field cannot be empty')
+        .required('Field cannot be empty')
         .trim(),
       password: Yup.string()
         .matches(
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{7,20}$/,
           'Password must contain at least one: lower case character, upper case character, number, special symbol AND must be between 7 and 20 symbols length.'
         )
-        .required('field cannot be empty')
-        .trim('empty spaces are ignored')
+        .required('Field cannot be empty')
+        .trim('Empty spaces are ignored')
 
     }),
     onSubmit: (values) => {
