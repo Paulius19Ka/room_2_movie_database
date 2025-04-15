@@ -6,6 +6,36 @@ import * as Yup from 'yup';
 import MoviesContext from "../contexts/MoviesContext";
 import { MovieContextTypes } from "../types";
 import { AgeRating, Movie } from "../movieTypes";
+import MuiModal from "../UI/atoms/MuiModal";
+import styled from "styled-components";
+
+const StyledSection = styled.section`
+  form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  button{
+    background-color: #bababa;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    padding: 2px 7px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+
+    &:hover{
+      cursor: pointer;
+      background-color: #ffffff;
+    }
+  }
+  div.buttons{
+    display: flex;
+    gap: 5px;
+  }
+`;
 
 const EditMovie = () => {
 
@@ -227,7 +257,7 @@ const EditMovie = () => {
   }
 
   return (
-    <section>
+    <StyledSection>
       {
         movie ?
         <div>
@@ -562,14 +592,23 @@ const EditMovie = () => {
                 <ErrorMessage name='reviews.users' component='p' />
               </div>
               {/* <Field type='submit' value='Add' /> */}
-              <button type='submit'>Update</button>
-              <button type='button' onClick={() => {deleteHandler()}} >Delete</button>
+              <div className="buttons">
+                <button type='submit'>Update</button>
+                {/* <button type='button' onClick={() => {deleteHandler()}} >Delete</button> */}
+                <MuiModal
+                  btnText='Delete'
+                  function={deleteHandler}
+                  type='movie'
+                  name={movie ? movie.title : ''}
+                  movie={movie}
+                />
+              </div>
             </Form>
           </Formik>
         </div> :
         <p>Loading...</p>
       }
-    </section>
+    </StyledSection>
   );
 }
  
