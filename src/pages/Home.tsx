@@ -5,14 +5,13 @@ import { useContext } from "react";
 import MoviesContext from "../contexts/MoviesContext";
 import MovieCard from "../UI/molecules/MovieCard";
 
-import { Container, Skeleton, Box } from "@mui/material";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Container, Skeleton } from "@mui/material";
 const StyledDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-
-  margin: 0 10px;
+  gap: 20px;
+  justify-content: center;
+  padding: 2rem 0;
 `;
 
 const Home = () => {
@@ -24,42 +23,36 @@ const Home = () => {
   const isLoading = !movies || movies.length === 0;
 
   return (
-    <Container sx={{ paddingTop: 4 }}>
-      <Box
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 2,
-          justifyContent: "center",
-        }}
-      >
+    <Container>
+      <StyledDiv>
         {isLoading
           ? [...Array(6)].map((_, i) => (
-              <Box
+              <div
                 key={i}
-                sx={{
+                style={{
                   width: 250,
                   display: "flex",
                   flexDirection: "column",
-                  gap: 1,
+                  gap: "10px",
                 }}
               >
                 <Skeleton
-              variant="rectangular"
-              width="100%"
-              height={360}
-              animation="wave"
-              sx={{ bgcolor: "#e0e0e0" }}
+                  variant="rectangular"
+                  width="100%"
+                  height={360}
+                  animation="wave"
+                  sx={{ bgcolor: "#ffff00" }}
                 />
-          <Skeleton width="80%" sx={{ bgcolor: "#e0e0e0" }} />
-          <Skeleton width="60%" sx={{ bgcolor: "#e0e0e0" }} />
-              </Box>
+                <Skeleton width="80%" sx={{ bgcolor: "#ffff00" }} />
+                <Skeleton width="60%" sx={{ bgcolor: "#ffff00" }} />
+              </div>
             ))
           : movies.map((movie) => (
               <MovieCard key={movie.id} data={movie} />
             ))}
-      </Box>
+      </StyledDiv>
     </Container>
   );
 };
+
 export default Home;
