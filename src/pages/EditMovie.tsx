@@ -600,6 +600,7 @@ const EditMovie = () => {
                   function={deleteHandler}
                   type='movie'
                   name={movie ? movie.title : ''}
+                  movie={movie}
                 />
               </div>
             </Form>

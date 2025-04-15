@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
+// import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
@@ -10,6 +10,7 @@ import { Link, useNavigate } from "react-router";
 import { useContext } from "react";
 import UsersContext from "../../contexts/UsersContext";
 import { UsersContextTypes } from "../../types";
+import MuiModal from "../atoms/MuiModal";
 
 type Props = {
   data: Movie
@@ -79,7 +80,7 @@ const MovieCard = ({ data }: Props) => {
         <span><StarIcon />{data.IMDB?.totalScore}</span>
         <StarBorderIcon /> {/* add rating functionality here */}
       </div>
-      <h3>{data.title}</h3>
+      <h3><Link to={`${data.id}`}>{data.title}</Link></h3>
       {
         loggedInUser ?
         <button>+ Watchlist</button> :
@@ -87,7 +88,14 @@ const MovieCard = ({ data }: Props) => {
       }
       <div className="info">
         <Link to={data.videos.trailers[0]} target="_blank"><PlayArrowIcon />Trailer</Link>
-        <Link to={`${data.id}`}><InfoOutlineIcon /></Link>
+        {/* <Link to={`${data.id}`}><InfoOutlineIcon /></Link> */}
+        <MuiModal
+          btnText='infoIcon'
+          function={() => {}}
+          type='info'
+          name={data ? data.title : ''}
+          movie={data}
+        />
         {
           loggedInUser?.role === 'admin' ?
           <Link to={`edit/${data.id}`}><EditIcon /></Link> :

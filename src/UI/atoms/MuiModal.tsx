@@ -5,12 +5,16 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
+import { Movie } from '../../movieTypes';
+import styled from 'styled-components';
 
 type Props = {
   btnText: string,
   name: string,
   type: string,
-  function: () => void
+  function: () => void,
+  movie: Movie
 }
 
 const style = {
@@ -26,6 +30,13 @@ const style = {
   p: 4,
 };
 
+const StyledInfoDiv = styled.div`
+  > img{
+    width: 100px;
+    height: 100px;
+  }
+`;
+
 const MuiModal = ( props : Props) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -33,7 +44,7 @@ const MuiModal = ( props : Props) => {
 
   return (
     <div>
-      <Button onClick={handleOpen}>{props.btnText}</Button>
+      <Button onClick={handleOpen}>{props.btnText === 'Delete' ? props.btnText : <InfoOutlineIcon />}</Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -57,12 +68,29 @@ const MuiModal = ( props : Props) => {
                 </Typography>
                 <Button onClick={() => props.function()}>{props.btnText}</Button>
                 <Button onClick={handleClose}>Cancel</Button>
-              </> :
-              <>
+              </> : 
+              props.movie ?
+              <StyledInfoDiv>
+                <img src={props.movie.photos.poster[0]} alt={props.movie.title} />
                 <Typography id="transition-modal-title" variant="h6" component="h2">
-                  Something to display
+                  {props.movie.title}
                 </Typography>
-              </>
+                <div>
+                  <span>{props.movie.releaseYear}</span>
+                  <span>{props.movie.length}</span>
+                  <span>{props.movie.eirinCategory}</span>
+                  <span>{props.movie.genres.toString()}</span>
+                </div>
+                <div>
+                  <span>{props.movie.IMDB?.totalScore}/10</span>
+                </div>
+                <p>{props.movie.description}</p>
+                <div>
+                  <button>+ Watchlist</button>
+                  <button onClick={handleClose}>Close</button>
+                </div>
+              </StyledInfoDiv> :
+              <p>Loading...</p>
             }
           </Box>
         </Fade>
