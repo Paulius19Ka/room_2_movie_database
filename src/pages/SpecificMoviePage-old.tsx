@@ -15,12 +15,12 @@ const StyledSection = styled.section`
   }
   `;
   
-  const HeroSection = styled.div`
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  justify-content: space-around;
-  `;
+  // const HeroSection = styled.div`
+  // display: flex;
+  // gap: 10px;
+  // align-items: center;
+  // justify-content: space-around;
+  // `;
   
   const StyledMovieHeader = styled.div`
   display: flex;

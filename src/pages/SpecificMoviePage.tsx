@@ -45,6 +45,18 @@ const StyledSection = styled.section`
         height: 450px;
       }
     }
+
+    > div.movieInfo{
+      > div.movieDirector, div.movieWriters, div.movieActors{
+        display: flex;
+        gap: 20px;
+
+        > div{
+          display: flex;
+          gap: 10px;
+        }
+      }
+    }
   }
 `;
 
@@ -88,6 +100,34 @@ const SpecificMoviePage = () => {
           <div className="movieMedia">
             <img src={movie.photos.poster[0]} alt={movie.title} />
             <iframe width="560" height="315" src={`https://www.youtube.com/embed/${movie.videos.trailers[0].split("v=")[1].split("&")[0]}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+          <div className="movieInfo">
+            <div className="movieGenres">
+              {
+                movie.genres.map(genre => <span>{genre}</span>)
+              }
+            </div>
+            <p>{movie.description}</p>
+            <div className="movieDirector">
+              <span>Director</span>
+              <span>{movie.castAndCrew.director}</span>
+            </div>
+            <div className="movieWriters">
+              <span>Writers</span>
+              <div>
+                {
+                  movie.castAndCrew.writers.slice(0, 3).map(writer => <span>{writer.name}</span>)
+                }
+              </div>
+            </div>
+            <div className="movieActors">
+              <span>Actors</span>
+              <div>
+                {
+                  movie.castAndCrew.actors.slice(0, 3).map(actor => <span>{actor.name}</span>)
+                }
+              </div>
+            </div>
           </div>
         </div> :
         <p>Loading...</p>
