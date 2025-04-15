@@ -606,10 +606,17 @@ const EditMovie = () => {
               </div>
             </Form>
           </Formik>
-        </div> :
-        <p>Loading...</p>
-      }
-    </section>
+        </div>)  : (
+        <div style={{ maxWidth: 800, margin: "2rem auto", padding: "1rem" }}>
+        <Skeleton height={50} width="40%" sx={{ bgcolor: "#465335" }} />
+        <Skeleton height={30} width="60%" sx={{ bgcolor: "#465335", mb: 2 }} />
+        {[...Array(4)].map((_, i) => (
+          <Skeleton key={i} height={80} width="100%" sx={{ bgcolor: "#465335", mb: 2 }} />
+        ))}
+        <Skeleton height={40} width="30%" sx={{ bgcolor: "#465335" }} />
+      </div>
+      )}
+    </StyledSection>
   );
 }
  
