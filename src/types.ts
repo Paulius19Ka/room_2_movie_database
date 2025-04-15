@@ -30,6 +30,6 @@ export type UsersContextTypes = {
   users: User[],
   loggedInUser: User | null,
   setLoggedInUser: React.Dispatch<React.SetStateAction<User | null>>,
-  dispatch: React.ActionDispatch<[action: UsersReducerActionTypes]>
+  dispatch: React.Dispatch<UsersReducerActionTypes>
 };
 
