@@ -46,7 +46,6 @@ const Register = () => {
         .min(new Date(1900), 'Date must be later than 1900')
         .max(new Date(new Date().setFullYear(new Date().getFullYear() - 14)), 'you must be at leats 14 years old')
         .required(),
-
     }),
     onSubmit: (values) => {
       if (users.find(user =>
@@ -64,10 +63,6 @@ const Register = () => {
           password: bcrypt.hashSync(rest.password, 10),
           role: 'user'
         }
-        // newUser.id = generatedId();
-        // newUser.passwordText = newUser.password;
-        // newUser.password = bcrypt.hashSync(newUser.password, 10);
-        // newUser.role = 'user';
         setLoggedInUser(newUser);
         dispatch({
           type: 'addUser',
