@@ -111,9 +111,9 @@ const Register = () => {
       <h2>Register</h2>
       {loading ? (
         <>
-          <Skeleton height={50} width="40%" sx={{ bgcolor: "#ffff00" }} />
-          <Skeleton height={500} width="100%" sx={{ bgcolor: "#ffff00" }} />
-          <Skeleton height={40} width="20%" sx={{ bgcolor: "#ffff00" }} />
+          <Skeleton height={50} width="40%" sx={{ bgcolor: "#465335" }} />
+          <Skeleton height={500} width="100%" sx={{ bgcolor: "#465335" }} />
+          <Skeleton height={40} width="20%" sx={{ bgcolor: "#465335" }} />
         </>
       ) : (
       <form onSubmit={formik.handleSubmit}>

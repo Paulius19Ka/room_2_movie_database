@@ -41,10 +41,10 @@ const Home = () => {
                   width="100%"
                   height={360}
                   animation="wave"
-                  sx={{ bgcolor: "#ffff00" }}
+                  sx={{ bgcolor: "#465335" }}
                 />
-                <Skeleton width="80%" sx={{ bgcolor: "#ffff00" }} />
-                <Skeleton width="60%" sx={{ bgcolor: "#ffff00" }} />
+                <Skeleton width="80%" sx={{ bgcolor: "#465335" }} />
+                <Skeleton width="60%" sx={{ bgcolor: "#465335" }} />
               </div>
             ))
           : movies.map((movie) => (

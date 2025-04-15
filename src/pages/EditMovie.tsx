@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import MoviesContext from "../contexts/MoviesContext";
 import { MovieContextTypes } from "../types";
 import { AgeRating, Movie } from "../movieTypes";
+import { Skeleton } from "@mui/material";
 
 const EditMovie = () => {
 
@@ -229,7 +230,7 @@ const EditMovie = () => {
   return (
     <section>
       {
-        movie ?
+        movie ? (
         <div>
           <h2>Edit Movie</h2>
           <h3>{movie.title}</h3>
@@ -566,9 +567,16 @@ const EditMovie = () => {
               <button type='button' onClick={() => {deleteHandler()}} >Delete</button>
             </Form>
           </Formik>
-        </div> :
-        <p>Loading...</p>
-      }
+        </div> ) : (
+        <div style={{ maxWidth: 800, margin: "2rem auto", padding: "1rem" }}>
+        <Skeleton height={50} width="40%" sx={{ bgcolor: "#465335" }} />
+        <Skeleton height={30} width="60%" sx={{ bgcolor: "#465335", mb: 2 }} />
+        {[...Array(4)].map((_, i) => (
+          <Skeleton key={i} height={80} width="100%" sx={{ bgcolor: "#465335", mb: 2 }} />
+        ))}
+        <Skeleton height={40} width="30%" sx={{ bgcolor: "#465335" }} />
+      </div>
+      )}
     </section>
   );
 }
