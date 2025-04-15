@@ -1,9 +1,10 @@
 import { useFormik } from 'formik';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router';
 import bcrypt from 'bcryptjs';
 import * as Yup from 'yup';
 import styled from 'styled-components';
+import { Skeleton } from "@mui/material";
 
 import UsersContext from '../contexts/UsersContext';
 import { UsersContextTypes } from '../types';
@@ -64,6 +65,11 @@ const Login = () => {
   const { users, setLoggedInUser } = useContext(UsersContext) as UsersContextTypes;
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -107,6 +113,13 @@ const Login = () => {
   return (
     <StyledLogin>
       <h2>Login</h2>
+      {loading ? (
+        <>
+          <Skeleton height={50} width="40%" sx={{ bgcolor: "#ffff00" }} />
+          <Skeleton height={200} width="100%" sx={{ bgcolor: "#ffff00" }} />
+          <Skeleton height={40} width="20%" sx={{ bgcolor: "#ffff00" }} />
+        </>
+      ) : (
       <form onSubmit={formik.handleSubmit}>
         <div>
           <label
@@ -153,11 +166,14 @@ const Login = () => {
         </div>
         <input type="submit" value="Login" />
       </form>
-      {
+      )}{
         error && <p>{error}</p>
       }
       <Link to="/register">Don't have an account yet? Go create one.</Link>
+      
+    
     </StyledLogin>
+    
   );
 }
 

@@ -1,18 +1,39 @@
 import { useFormik } from "formik";
 import bcrypt from "bcryptjs";
 import { v4 as generatedId } from "uuid";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router";
 import * as Yup from 'yup';
+import styled from "styled-components";
 
+import { Skeleton } from "@mui/material";
 import UsersContext from "../contexts/UsersContext";
 import { User, UsersContextTypes } from "../types";
+
+
+const StyledRegister = styled.section`
+  max-width: 400px;
+  margin: 2rem auto;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+`;
+
+
 
 const Register = () => {
 
   const { users, dispatch, setLoggedInUser } = useContext(UsersContext) as UsersContextTypes;
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -75,8 +96,17 @@ const Register = () => {
   });
 
   return (
-    <section>
+    
+      <StyledRegister>
+
       <h2>Register</h2>
+      {loading ? (
+        <>
+          <Skeleton height={50} width="40%" sx={{ bgcolor: "#ffff00" }} />
+          <Skeleton height={500} width="100%" sx={{ bgcolor: "#ffff00" }} />
+          <Skeleton height={40} width="20%" sx={{ bgcolor: "#ffff00" }} />
+        </>
+      ) : (
       <form onSubmit={formik.handleSubmit}>
         <div>
           <label
@@ -155,11 +185,12 @@ const Register = () => {
         </div>
         <button type="submit">Register</button>
       </form>
-      {
+     )} {
         error && <p>{error}</p>
       }
       <Link to="/login">Aleady have an account? Go login.</Link>
-    </section>
+    
+    </StyledRegister>
   );
 }
 
