@@ -3416,6 +3416,7 @@
 			"password": "$2b$10$VJtUMFfvqXIAjB9Rqyt8lOHR3kZU1Q2Mu94HY/cOBHXTQ0iDf6cTO",
 			"passwordText": "Labas123!",
 			"dob": "2000-01-01",
+			"profilePicture": "https://media.istockphoto.com/id/1135769825/vector/star-icon-vector-illustration.jpg?s=612x612&w=0&k=20&c=6jMpeAqUVM2db6kdhzj-nxA52Sqk3ImpN-GP9lIeaXE=",
 			"role": "admin",
 			"watchlistItems": [
 				"3",
@@ -3430,12 +3431,23 @@
 			"password": "$2b$10$3HNPm.jVJMZ/ADzzgSoyAumBoEalxW5fRe5a5GLrZuWfGjJrtfR2K",
 			"passwordText": "Ate345@",
 			"dob": "2002-04-04",
+			"profilePicture": "https://static.vecteezy.com/system/resources/thumbnails/000/378/728/small/Basic_Elements__28120_29.jpg",
 			"role": "user",
 			"watchlistItems": [
 				"2",
 				"4",
 				"9"
 			]
+		},
+		{
+			"id": "14c65204-5d9d-42a4-8171-39a7b0d67cdd",
+			"username": "Petras68",
+			"email": "petras68@gmail.com",
+			"password": "$2b$10$kGMKdhRmXi2KsJnzxaqdNuFbri5oTe9lGCtf82lCBjn0fn8H7SRe2",
+			"dob": "2010-02-02",
+			"profilePicture": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg",
+			"passwordText": "Saule123!",
+			"role": "user"
 		}
 	]
 }
