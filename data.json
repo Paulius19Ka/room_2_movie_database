@@ -3406,57 +3406,6 @@
         "critics": 51,
         "users": 1487
       }
-    },
-    {
-      "id": "1b31a880-6e8b-44de-ad5a-130b79256290",
-      "title": "Snow White 1222",
-      "releaseYear": 1900,
-      "eirinCategory": "PG",
-      "length": 1,
-      "photos": {
-        "poster": [
-          "https://m.media-amazon.com/images/M/MV5BY2UwOGUxMzEtMzEyZi00NjEwLTkxOTMtYTljOWEzYjYyMWNjXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
-        ],
-        "cutscenes": [
-          "https://image.tmdb.org/t/p/original/oLxWocqheC8XbXbxqJ3x422j9PW.jpg"
-        ]
-      },
-      "videos": {
-        "trailers": [
-          "https://www.youtube.com/watch?v=iV46TJKL8cU"
-        ],
-        "cutscenes": [
-          "https://www.youtube.com/watch?v=tezOHg9BTzc"
-        ]
-      },
-      "genres": [
-        "Horror",
-        "Fantasy"
-      ],
-      "description": "asddasadsdasdasadsadsasd",
-      "castAndCrew": {
-        "director": " Marc Webb",
-        "writers": [
-          {
-            "name": "Erin Cressida Wilson",
-            "role": "Fairy Tale"
-          }
-        ],
-        "actors": [
-          {
-            "name": "Erin Cressida Wilson",
-            "character": [
-              "saddasdasdas"
-            ],
-            "actorPhoto": "http://localhost:5173/add"
-          }
-        ]
-      },
-      "reviews": {
-        "metascore": 0,
-        "critics": 0,
-        "users": 0
-      }
     }
   ],
   "users": [

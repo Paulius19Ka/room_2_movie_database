@@ -76,8 +76,8 @@ const MovieCard = ({ data }: Props) => {
       <button>+ Watchlist</button>
       <div className="info">
         <Link to={data.videos.trailers[0]}><PlayArrowIcon />Trailer</Link>
-        <Link to={`/${data.id}`}><InfoOutlineIcon /></Link>
-        <Link to={`/edit/${data.id}`}><EditIcon /></Link>
+        <Link to={`${data.id}`}><InfoOutlineIcon /></Link>
+        <Link to={`edit/${data.id}`}><EditIcon /></Link>
       </div>
     </StyledDiv>
   );
