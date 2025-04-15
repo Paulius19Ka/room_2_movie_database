@@ -104,7 +104,7 @@ const MuiModal = ( props : Props) => {
                 <Button onClick={() => props.function()}>{props.btnText}</Button>
                 <Button onClick={handleClose}>Cancel</Button>
               </> : 
-              props.movie ?
+              props.movie && props.btnText === 'infoIcon' ?
               <StyledInfoDiv>
                 <div>
                   <img src={props.movie.photos.poster[0]} alt={props.movie.title} />
@@ -118,7 +118,7 @@ const MuiModal = ( props : Props) => {
                         <span>{props.movie.length} min</span>
                         <span>{props.movie.eirinCategory}</span>
                       </div>
-                      <span className='genres'>{props.movie.genres.toString()}</span>
+                      <span className='genres'>{props.movie.genres.join(' ⬩ ')}</span>
                     </div>
                     <span>{props.movie.IMDB?.totalScore}/10</span>
                   </div>
@@ -129,6 +129,8 @@ const MuiModal = ( props : Props) => {
                   <button onClick={handleClose}>Close</button>
                 </div>
               </StyledInfoDiv> :
+              props.movie && props.btnText === 'trailerIcon' ?
+              <>IFRAME FOR TRAILER HERE</> :
               <p>Loading...</p>
             }
           </Box>
