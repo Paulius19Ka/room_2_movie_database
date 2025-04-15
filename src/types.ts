@@ -19,6 +19,7 @@ export type User = {
   password: string,
   passwordText: string,
   dob: string,
+  profilePicture: string,
   role: "admin" | "user"
 };
 

@@ -41,7 +41,8 @@ const Register = () => {
       email: '',
       password: '',
       passwordRepeat: '',
-      dob: ''
+      dob: '',
+      profilePicture: ''
     },
     validationSchema: Yup.object({
       username: Yup.string()
@@ -67,6 +68,13 @@ const Register = () => {
         .min(new Date(1900), 'Date must be later than 1900')
         .max(new Date(new Date().setFullYear(new Date().getFullYear() - 14)), 'you must be at leats 14 years old')
         .required(),
+      profilePicture: Yup.string()
+        .url('profile image must be a valid URL')
+        .matches(
+          /\.png|\.jpg|\.jpeg|\.webm|\.svg$/i,
+          'URL must be an image')
+        .trim()
+        .default('https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg')
     }),
     onSubmit: (values) => {
       if (users.find(user =>
@@ -82,6 +90,7 @@ const Register = () => {
           id: generatedId(),
           passwordText: rest.password,
           password: bcrypt.hashSync(rest.password, 10),
+          profilePicture: rest.profilePicture || 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg',
           role: 'user'
         }
         setLoggedInUser(newUser);
@@ -181,6 +190,21 @@ const Register = () => {
           {
             formik.touched.dob && formik.errors.dob &&
             <p>{formik.errors.dob}</p>
+          }
+        </div>
+        <div>
+          <label
+            htmlFor="profilePicture">Profile picture:</label>
+          <input
+            type="url"
+            name="profilePicture" id="profilePicture"
+            value={formik.values.profilePicture}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+          />
+          {
+            formik.touched.profilePicture && formik.errors.profilePicture &&
+            <p>{formik.errors.profilePicture}</p>
           }
         </div>
         <button type="submit">Register</button>
