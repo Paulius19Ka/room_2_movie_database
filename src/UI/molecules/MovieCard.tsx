@@ -7,6 +7,9 @@ import EditIcon from '@mui/icons-material/Edit';
 
 import { Movie } from "../../movieTypes";
 import { Link } from "react-router";
+import { useContext } from "react";
+import UsersContext from "../../contexts/UsersContext";
+import { UsersContextTypes } from "../../types";
 
 type Props = {
   data: Movie
@@ -65,6 +68,9 @@ const StyledDiv = styled.div`
 `;
 
 const MovieCard = ({ data }: Props) => {
+
+  const { loggedInUser } = useContext(UsersContext) as UsersContextTypes;
+
   return (
     <StyledDiv>
       <img src={data.photos.poster[0]} alt={data.title} />
@@ -77,7 +83,11 @@ const MovieCard = ({ data }: Props) => {
       <div className="info">
         <Link to={data.videos.trailers[0]}><PlayArrowIcon />Trailer</Link>
         <Link to={`${data.id}`}><InfoOutlineIcon /></Link>
-        <Link to={`edit/${data.id}`}><EditIcon /></Link>
+        {
+          loggedInUser?.role === 'admin' ?
+          <Link to={`edit/${data.id}`}><EditIcon /></Link> :
+          <></>
+        }
       </div>
     </StyledDiv>
   );
