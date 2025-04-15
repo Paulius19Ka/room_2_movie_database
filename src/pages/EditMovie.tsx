@@ -44,7 +44,7 @@ const EditMovie = () => {
   ];
 
   const { id } = useParams();
-  const { findMovie, editMovie } = useContext(MoviesContext) as MovieContextTypes;
+  const { findMovie, editMovie, deleteMovie } = useContext(MoviesContext) as MovieContextTypes;
   const [movie, setMovie] = useState<Movie | undefined>(undefined);
   const navigate = useNavigate();
 
@@ -219,6 +219,13 @@ const EditMovie = () => {
     }
   };
 
+  const deleteHandler = () => {
+    if(id){
+      deleteMovie(id);
+      navigate('/');
+    }
+  }
+
   return (
     <section>
       {
@@ -229,7 +236,7 @@ const EditMovie = () => {
           <Formik 
             initialValues={initialValues}
             onSubmit={submitHandler}
-            // validationSchema={validSchema}
+            validationSchema={validSchema}
           >
             <Form>
               <div>
@@ -416,7 +423,7 @@ const EditMovie = () => {
                   render={arrayHelpers => (
                     <>
                       {
-                        arrayHelpers.form.values.castAndCrew.writers.map((_: string, i: number) => (
+                        arrayHelpers.form.values.castAndCrew.writers.map((_: { name: string, role: string }, i: number) => (
                           <div key={i}>
                             <div>
                               <label htmlFor={`castAndCrew.writers[${i}].name`}>Name:</label>
@@ -426,6 +433,7 @@ const EditMovie = () => {
                                 placeholder="Name of the writer..."
                                 type="text"
                               />
+                              <ErrorMessage name={`castAndCrew.writers[${i}].name`} component="p" />
                             </div>
                             <div>
                               <label htmlFor={`castAndCrew.writers[${i}].role`}>Role:</label>
@@ -435,6 +443,7 @@ const EditMovie = () => {
                                 placeholder="Role of the writer..."
                                 type="text"
                               />
+                              <ErrorMessage name={`castAndCrew.writers[${i}].role`} component="p" />
                             </div>
                             <button type='button' onClick={() => arrayHelpers.remove(i)}>-</button>
                           </div>
@@ -451,7 +460,7 @@ const EditMovie = () => {
                     </>
                   )}
                 />
-                <ErrorMessage name='castAndCrew.writers' component='p' />
+                {/* <ErrorMessage name='castAndCrew.writers' component='p' /> */}
               </div>
               {/* actors input fields */}
               <div>
@@ -471,6 +480,7 @@ const EditMovie = () => {
                                 placeholder="Name of the actor..."
                                 type="text"
                               />
+                              <ErrorMessage name={`castAndCrew.actors[${i}].name`} component="p" />
                             </div>
                             <div>
                               <label htmlFor={`castAndCrew.actors[${i}].character`}>Character:</label>
@@ -505,6 +515,7 @@ const EditMovie = () => {
                                 placeholder="Photo url..."
                                 type="url"
                               />
+                              <ErrorMessage name={`castAndCrew.actors[${i}].actorPhoto`} component="p" />
                             </div>
                             <button type="button" onClick={() => arrayHelpers.remove(i)}>-</button>
                           </div>
@@ -521,7 +532,7 @@ const EditMovie = () => {
                     </>
                   )}
                 />
-                <ErrorMessage name="castAndCrew.actors" component="p" />
+                {/* <ErrorMessage name="castAndCrew.actors" component="p" /> */}
               </div>
               <div>
                 <label htmlFor="reviews.metascore">Metascore:</label>
@@ -552,7 +563,7 @@ const EditMovie = () => {
               </div>
               {/* <Field type='submit' value='Add' /> */}
               <button type='submit'>Update</button>
-              <button type='button'>Delete</button>
+              <button type='button' onClick={() => {deleteHandler()}} >Delete</button>
             </Form>
           </Formik>
         </div> :

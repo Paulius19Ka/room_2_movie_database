@@ -86,7 +86,7 @@ const AddMovie = () => {
 
   const submitHandler = (values: InitialValuesType) => {
     values.id = genID();
-    console.log(values);
+    // console.log(values);
     addMovie(values);
     navigate('/');
   }
@@ -162,38 +162,30 @@ const AddMovie = () => {
         .of(
           Yup.object({
             name: Yup.string()
-              .min(5, 'Too short, <5')
-              .max(30, 'Too long, >30')
               .required('Field is required')
               .trim(),
             role: Yup.string()
-              .min(5, 'Too short, <5')
-              .max(30, 'Too long, >30')
               .required('Field is required')
               .trim(),
           })
-        ),
+        )
+        .min(1, 'Must have at least one writer'),
       actors: Yup.array()
         .of(
           Yup.object({
             name: Yup.string()
-              .min(5, 'Too short, <5')
-              .max(30, 'Too long, >30')
-              .required('Field is required')
-              .trim(),
+              .required('Field is required'),
             character: Yup.array()
               .of(
                 Yup.string()
-                  .min(5, 'Too short, <5')
-                  .max(30, 'Too long, >30')
-                  .required('Field is required')
-                  .trim()
+                  .required('Field is required'),
               ),
             actorPhoto: Yup.string()
               .url('Must be a valid url')
               .required('Field is required'),
           })
-        ),
+        )
+        .min(1, 'Must have at least one actor'),
     }),
     reviews: Yup.object({
       metascore: Yup.number()
@@ -215,7 +207,7 @@ const AddMovie = () => {
       <Formik 
         initialValues={initialValues}
         onSubmit={submitHandler}
-        // validationSchema={validSchema}
+        validationSchema={validSchema}
       >
         <Form>
           <div>
@@ -405,7 +397,7 @@ const AddMovie = () => {
               render={arrayHelpers => (
                 <>
                   {
-                    arrayHelpers.form.values.castAndCrew.writers.map((_: { name: string; role: string }, i: number) => (
+                    arrayHelpers.form.values.castAndCrew.writers.map((_: { name: string, role: string }, i: number) => (
                       <div key={i}>
                         <div>
                           <label htmlFor={`castAndCrew.writers[${i}].name`}>Name:</label>
@@ -444,7 +436,7 @@ const AddMovie = () => {
                 </>
               )}
             />
-            {/* <ErrorMessage name='castAndCrew.writers' component='p' /> */}
+            <ErrorMessage name='castAndCrew.writers' component='p' />
           </div>
           {/* actors input fields */}
           <div>
@@ -454,7 +446,7 @@ const AddMovie = () => {
               render={arrayHelpers => (
                 <>
                   {
-                    arrayHelpers.form.values.castAndCrew.actors.map((_: string, i: number) => (
+                    arrayHelpers.form.values.castAndCrew.actors.map((_: { name: string, character: string[], actorPhoto: string }, i: number) => (
                       <div key={i}>
                         <div>
                           <label htmlFor={`castAndCrew.actors[${i}].name`}>Name:</label>
@@ -465,7 +457,7 @@ const AddMovie = () => {
                             type="text"
                             // disabled={i < arrayHelpers.form.values.castAndCrew.actors.length - 1}
                           />
-                          <ErrorMessage name="castAndCrew.actors[${i}].name" component="p" />
+                          <ErrorMessage name={`castAndCrew.actors[${i}].name`} component="p" />
                         </div>
                         <div>
                           <label htmlFor={`castAndCrew.actors[${i}].character`}>Character:</label>
@@ -501,7 +493,7 @@ const AddMovie = () => {
                             type="url"
                             // disabled={i < arrayHelpers.form.values.castAndCrew.actors.length - 1}
                           />
-                          <ErrorMessage name="castAndCrew.actors[${i}].actorPhoto" component="p" />
+                          <ErrorMessage name={`castAndCrew.actors[${i}].actorPhoto`} component="p" />
                         </div>
                         <button type="button" onClick={() => arrayHelpers.remove(i)}>-</button>
                       </div>
