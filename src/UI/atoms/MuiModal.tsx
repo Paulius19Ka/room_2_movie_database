@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import { Movie } from '../../movieTypes';
 import styled from 'styled-components';
+import { Link } from 'react-router';
 
 type Props = {
   btnText: string,
@@ -18,22 +19,56 @@ type Props = {
 }
 
 const style = {
-  color: 'black',
+  color: 'grey.50',
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: 'background.paper',
+  bgcolor: 'grey.900',
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
 
 const StyledInfoDiv = styled.div`
-  > img{
+  > div{
+    display: grid;
+    grid-template-columns: 30% 70%;
+    grid-template-rows: 1fr;
+    gap: 10px;
+
+    > div{
+
+      > h2{
+        margin: 0;
+      }
+
+      > div{
+        
+        > div.info{
+          width: 70%;
+
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
+
+    > img{
     width: 100px;
-    height: 100px;
+    height: 150px;
+    object-fit: cover;
+  }
+  }
+
+  > p{
+    margin: 0;
+  }
+
+  > div.buttons{
+    display: flex;
+    justify-content: center;
   }
 `;
 
@@ -71,21 +106,25 @@ const MuiModal = ( props : Props) => {
               </> : 
               props.movie ?
               <StyledInfoDiv>
-                <img src={props.movie.photos.poster[0]} alt={props.movie.title} />
-                <Typography id="transition-modal-title" variant="h6" component="h2">
-                  {props.movie.title}
-                </Typography>
                 <div>
-                  <span>{props.movie.releaseYear}</span>
-                  <span>{props.movie.length}</span>
-                  <span>{props.movie.eirinCategory}</span>
-                  <span>{props.movie.genres.toString()}</span>
-                </div>
-                <div>
-                  <span>{props.movie.IMDB?.totalScore}/10</span>
+                  <img src={props.movie.photos.poster[0]} alt={props.movie.title} />
+                  <div>
+                    <Typography id="transition-modal-title" variant="h6" component="h2">
+                      <Link to={`/${props.movie.id}`}>{props.movie.title}</Link>
+                    </Typography>
+                    <div>
+                      <div className='info'>
+                        <span>{props.movie.releaseYear}</span>
+                        <span>{props.movie.length} min</span>
+                        <span>{props.movie.eirinCategory}</span>
+                      </div>
+                      <span className='genres'>{props.movie.genres.toString()}</span>
+                    </div>
+                    <span>{props.movie.IMDB?.totalScore}/10</span>
+                  </div>
                 </div>
                 <p>{props.movie.description}</p>
-                <div>
+                <div className='buttons'>
                   <button>+ Watchlist</button>
                   <button onClick={handleClose}>Close</button>
                 </div>
