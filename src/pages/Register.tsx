@@ -21,7 +21,8 @@ const Register = () => {
       password: '',
       passwordRepeat: '',
       dob: '',
-      profilePicture: ''
+      profilePicture: '',
+      watchlistItems: []
     },
     validationSchema: Yup.object({
       username: Yup.string()
