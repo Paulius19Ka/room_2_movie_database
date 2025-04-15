@@ -44,7 +44,7 @@ const EditMovie = () => {
   ];
 
   const { id } = useParams();
-  const { findMovie, editMovie } = useContext(MoviesContext) as MovieContextTypes;
+  const { findMovie, editMovie, deleteMovie } = useContext(MoviesContext) as MovieContextTypes;
   const [movie, setMovie] = useState<Movie | undefined>(undefined);
   const navigate = useNavigate();
 
@@ -214,9 +214,17 @@ const EditMovie = () => {
     // console.log(values);
     if(id){
       editMovie(id, values)
-      navigate(`/${id}`);
+      // navigate(`/${id}`);
+      navigate(`/`);
     }
   };
+
+  const deleteHandler = () => {
+    if(id){
+      deleteMovie(id);
+      navigate('/');
+    }
+  }
 
   return (
     <section>
@@ -282,7 +290,7 @@ const EditMovie = () => {
                         arrayHelpers.form.values.photos.poster.map((_: string, i: number) => (
                           <div key={i}>
                             <Field
-                              id={`photos.poster.${i}`} name={`photos.poster.${i}`}
+                              id={`photos.poster.${i}`} name={`photos.poster[${i}]`}
                               placeholder='Url of a picture...'
                               type='url'
                             />
@@ -306,7 +314,7 @@ const EditMovie = () => {
                         arrayHelpers.form.values.photos.cutscenes.map((_: string, i: number) => (
                           <div key={i}>
                             <Field
-                              id={`photos.cutscenes.${i}`} name={`photos.cutscenes.[${i}]`}
+                              id={`photos.cutscenes.${i}`} name={`photos.cutscenes[${i}]`}
                               placeholder='Url of a picture...'
                               type='url'
                             />
@@ -330,7 +338,7 @@ const EditMovie = () => {
                         arrayHelpers.form.values.videos.trailers.map((_: string, i: number) => (
                           <div key={i}>
                             <Field
-                              id={`videos.trailers.${i}`} name={`videos.trailers.[${i}]`}
+                              id={`videos.trailers.${i}`} name={`videos.trailers[${i}]`}
                               placeholder='Url of a video...'
                               type='url'
                             />
@@ -354,7 +362,7 @@ const EditMovie = () => {
                         arrayHelpers.form.values.videos.cutscenes.map((_: string, i: number) => (
                           <div key={i}>
                             <Field
-                              id={`videos.cutscenes.${i}`} name={`videos.cutscenes.[${i}]`}
+                              id={`videos.cutscenes.${i}`} name={`videos.cutscenes[${i}]`}
                               placeholder='Url of a video...'
                               type='url'
                             />
@@ -415,7 +423,7 @@ const EditMovie = () => {
                   render={arrayHelpers => (
                     <>
                       {
-                        arrayHelpers.form.values.castAndCrew.writers.map((_: string, i: number) => (
+                        arrayHelpers.form.values.castAndCrew.writers.map((_: { name: string, role: string }, i: number) => (
                           <div key={i}>
                             <div>
                               <label htmlFor={`castAndCrew.writers[${i}].name`}>Name:</label>
@@ -425,6 +433,7 @@ const EditMovie = () => {
                                 placeholder="Name of the writer..."
                                 type="text"
                               />
+                              <ErrorMessage name={`castAndCrew.writers[${i}].name`} component="p" />
                             </div>
                             <div>
                               <label htmlFor={`castAndCrew.writers[${i}].role`}>Role:</label>
@@ -434,6 +443,7 @@ const EditMovie = () => {
                                 placeholder="Role of the writer..."
                                 type="text"
                               />
+                              <ErrorMessage name={`castAndCrew.writers[${i}].role`} component="p" />
                             </div>
                             <button type='button' onClick={() => arrayHelpers.remove(i)}>-</button>
                           </div>
@@ -450,7 +460,7 @@ const EditMovie = () => {
                     </>
                   )}
                 />
-                <ErrorMessage name='castAndCrew.writers' component='p' />
+                {/* <ErrorMessage name='castAndCrew.writers' component='p' /> */}
               </div>
               {/* actors input fields */}
               <div>
@@ -470,6 +480,7 @@ const EditMovie = () => {
                                 placeholder="Name of the actor..."
                                 type="text"
                               />
+                              <ErrorMessage name={`castAndCrew.actors[${i}].name`} component="p" />
                             </div>
                             <div>
                               <label htmlFor={`castAndCrew.actors[${i}].character`}>Character:</label>
@@ -504,6 +515,7 @@ const EditMovie = () => {
                                 placeholder="Photo url..."
                                 type="url"
                               />
+                              <ErrorMessage name={`castAndCrew.actors[${i}].actorPhoto`} component="p" />
                             </div>
                             <button type="button" onClick={() => arrayHelpers.remove(i)}>-</button>
                           </div>
@@ -520,7 +532,7 @@ const EditMovie = () => {
                     </>
                   )}
                 />
-                <ErrorMessage name="castAndCrew.actors" component="p" />
+                {/* <ErrorMessage name="castAndCrew.actors" component="p" /> */}
               </div>
               <div>
                 <label htmlFor="reviews.metascore">Metascore:</label>
@@ -551,6 +563,7 @@ const EditMovie = () => {
               </div>
               {/* <Field type='submit' value='Add' /> */}
               <button type='submit'>Update</button>
+              <button type='button' onClick={() => {deleteHandler()}} >Delete</button>
             </Form>
           </Formik>
         </div> :

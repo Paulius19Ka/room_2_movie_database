@@ -74,8 +74,8 @@ const AddMovie = () => {
     description: '',
     castAndCrew: {
       director: '',
-      writers: [],
-      actors: []
+      writers: [{ name: '', role: '' }],
+      actors: [{ name: '', character: [''], actorPhoto: '' }]
     },
     reviews: {
       metascore: 0,
@@ -162,44 +162,30 @@ const AddMovie = () => {
         .of(
           Yup.object({
             name: Yup.string()
-              .min(5, 'Too short, <5')
-              .max(30, 'Too long, >30')
               .required('Field is required')
               .trim(),
             role: Yup.string()
-              .min(5, 'Too short, <5')
-              .max(30, 'Too long, >30')
               .required('Field is required')
               .trim(),
           })
         )
-        .min(1, 'Must have at least one writer')
-        .required('Field is required'),
+        .min(1, 'Must have at least one writer'),
       actors: Yup.array()
         .of(
           Yup.object({
             name: Yup.string()
-              .min(5, 'Too short, <5')
-              .max(30, 'Too long, >30')
-              .required('Field is required')
-              .trim(),
+              .required('Field is required'),
             character: Yup.array()
               .of(
                 Yup.string()
-                  .min(5, 'Too short, <5')
-                  .max(30, 'Too long, >30')
-                  .required('Field is required')
-                  .trim()
-              )
-              .min(1, 'Must have at least one role')
-              .required('Field is required'),
+                  .required('Field is required'),
+              ),
             actorPhoto: Yup.string()
               .url('Must be a valid url')
               .required('Field is required'),
           })
         )
-        .min(1, 'Must have at least one actor')
-        .required('Field is required')
+        .min(1, 'Must have at least one actor'),
     }),
     reviews: Yup.object({
       metascore: Yup.number()
@@ -275,10 +261,10 @@ const AddMovie = () => {
                     arrayHelpers.form.values.photos.poster.map((_: string, i: number) => (
                       <div key={i}>
                         <Field
-                          id={`photos.poster.${i}`} name={`photos.poster.[${i}]`}
+                          id={`photos.poster.${i}`} name={`photos.poster[${i}]`}
                           placeholder='Url of a picture...'
                           type='url'
-                          disabled={i < arrayHelpers.form.values.photos.poster.length - 1}
+                          // disabled={i < arrayHelpers.form.values.photos.poster.length - 1}
                         />
                         <button type='button' onClick={() => arrayHelpers.remove(i)}>-</button>
                       </div>
@@ -300,10 +286,10 @@ const AddMovie = () => {
                     arrayHelpers.form.values.photos.cutscenes.map((_: string, i: number) => (
                       <div key={i}>
                         <Field
-                          id={`photos.cutscenes.${i}`} name={`photos.cutscenes.[${i}]`}
+                          id={`photos.cutscenes.${i}`} name={`photos.cutscenes[${i}]`}
                           placeholder='Url of a picture...'
                           type='url'
-                          disabled={i < arrayHelpers.form.values.photos.cutscenes.length - 1}
+                          // disabled={i < arrayHelpers.form.values.photos.cutscenes.length - 1}
                         />
                         <button type='button' onClick={() => arrayHelpers.remove(i)}>-</button>
                       </div>
@@ -325,10 +311,10 @@ const AddMovie = () => {
                     arrayHelpers.form.values.videos.trailers.map((_: string, i: number) => (
                       <div key={i}>
                         <Field
-                          id={`videos.trailers.${i}`} name={`videos.trailers.[${i}]`}
+                          id={`videos.trailers.${i}`} name={`videos.trailers[${i}]`}
                           placeholder='Url of a video...'
                           type='url'
-                          disabled={i < arrayHelpers.form.values.videos.trailers.length - 1}
+                          // disabled={i < arrayHelpers.form.values.videos.trailers.length - 1}
                         />
                         <button type='button' onClick={() => arrayHelpers.remove(i)}>-</button>
                       </div>
@@ -350,10 +336,10 @@ const AddMovie = () => {
                     arrayHelpers.form.values.videos.cutscenes.map((_: string, i: number) => (
                       <div key={i}>
                         <Field
-                          id={`videos.cutscenes.${i}`} name={`videos.cutscenes.[${i}]`}
+                          id={`videos.cutscenes.${i}`} name={`videos.cutscenes[${i}]`}
                           placeholder='Url of a video...'
                           type='url'
-                          disabled={i < arrayHelpers.form.values.videos.cutscenes.length - 1}
+                          // disabled={i < arrayHelpers.form.values.videos.cutscenes.length - 1}
                         />
                         <button type='button' onClick={() => arrayHelpers.remove(i)}>-</button>
                       </div>
@@ -411,7 +397,7 @@ const AddMovie = () => {
               render={arrayHelpers => (
                 <>
                   {
-                    arrayHelpers.form.values.castAndCrew.writers.map((_: string, i: number) => (
+                    arrayHelpers.form.values.castAndCrew.writers.map((_: { name: string, role: string }, i: number) => (
                       <div key={i}>
                         <div>
                           <label htmlFor={`castAndCrew.writers[${i}].name`}>Name:</label>
@@ -420,8 +406,9 @@ const AddMovie = () => {
                             name={`castAndCrew.writers[${i}].name`}
                             placeholder="Name of the writer..."
                             type="text"
-                            disabled={i < arrayHelpers.form.values.castAndCrew.writers.length - 1}
+                            // disabled={i < arrayHelpers.form.values.castAndCrew.writers.length - 1}
                           />
+                          <ErrorMessage name={`castAndCrew.writers[${i}].name`} component="p" />
                         </div>
                         <div>
                           <label htmlFor={`castAndCrew.writers[${i}].role`}>Role:</label>
@@ -430,8 +417,9 @@ const AddMovie = () => {
                             name={`castAndCrew.writers[${i}].role`}
                             placeholder="Role of the writer..."
                             type="text"
-                            disabled={i < arrayHelpers.form.values.castAndCrew.writers.length - 1}
+                            // disabled={i < arrayHelpers.form.values.castAndCrew.writers.length - 1}
                           />
+                          <ErrorMessage name={`castAndCrew.writers[${i}].role`} component="p" />
                         </div>
                         <button type='button' onClick={() => arrayHelpers.remove(i)}>-</button>
                       </div>
@@ -458,7 +446,7 @@ const AddMovie = () => {
               render={arrayHelpers => (
                 <>
                   {
-                    arrayHelpers.form.values.castAndCrew.actors.map((_: string, i: number) => (
+                    arrayHelpers.form.values.castAndCrew.actors.map((_: { name: string, character: string[], actorPhoto: string }, i: number) => (
                       <div key={i}>
                         <div>
                           <label htmlFor={`castAndCrew.actors[${i}].name`}>Name:</label>
@@ -467,8 +455,9 @@ const AddMovie = () => {
                             name={`castAndCrew.actors[${i}].name`}
                             placeholder="Name of the actor..."
                             type="text"
-                            disabled={i < arrayHelpers.form.values.castAndCrew.actors.length - 1}
+                            // disabled={i < arrayHelpers.form.values.castAndCrew.actors.length - 1}
                           />
+                          <ErrorMessage name={`castAndCrew.actors[${i}].name`} component="p" />
                         </div>
                         <div>
                           <label htmlFor={`castAndCrew.actors[${i}].character`}>Character:</label>
@@ -502,8 +491,9 @@ const AddMovie = () => {
                             name={`castAndCrew.actors[${i}].actorPhoto`}
                             placeholder="Photo url..."
                             type="url"
-                            disabled={i < arrayHelpers.form.values.castAndCrew.actors.length - 1}
+                            // disabled={i < arrayHelpers.form.values.castAndCrew.actors.length - 1}
                           />
+                          <ErrorMessage name={`castAndCrew.actors[${i}].actorPhoto`} component="p" />
                         </div>
                         <button type="button" onClick={() => arrayHelpers.remove(i)}>-</button>
                       </div>
@@ -520,7 +510,7 @@ const AddMovie = () => {
                 </>
               )}
             />
-            <ErrorMessage name="castAndCrew.actors" component="p" />
+            {/* <ErrorMessage name="castAndCrew.actors" component="p" /> */}
           </div>
           <div>
             <label htmlFor="reviews.metascore">Metascore:</label>
