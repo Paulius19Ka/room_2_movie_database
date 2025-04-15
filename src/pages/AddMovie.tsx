@@ -50,6 +50,20 @@ const StyledSection = styled.section`
     gap: 10px;
     align-items: flex-start;
   }
+  button{
+    background-color: #bababa;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    padding: 2px 7px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+
+    &:hover{
+      cursor: pointer;
+      background-color: #ffffff;
+    }
+  }
 `;
 
 const AddMovie = () => {

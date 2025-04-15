@@ -7,6 +7,36 @@ import MoviesContext from "../contexts/MoviesContext";
 import { MovieContextTypes } from "../types";
 import { AgeRating, Movie } from "../movieTypes";
 import { Skeleton } from "@mui/material";
+import MuiModal from "../UI/atoms/MuiModal";
+import styled from "styled-components";
+
+const StyledSection = styled.section`
+  form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  button{
+    background-color: #bababa;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    padding: 2px 7px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+
+    &:hover{
+      cursor: pointer;
+      background-color: #ffffff;
+    }
+  }
+  div.buttons{
+    display: flex;
+    gap: 5px;
+  }
+`;
 
 const EditMovie = () => {
 
@@ -228,7 +258,7 @@ const EditMovie = () => {
   }
 
   return (
-    <section>
+    <StyledSection>
       {
         movie ? (
         <div>
@@ -563,20 +593,22 @@ const EditMovie = () => {
                 <ErrorMessage name='reviews.users' component='p' />
               </div>
               {/* <Field type='submit' value='Add' /> */}
-              <button type='submit'>Update</button>
-              <button type='button' onClick={() => {deleteHandler()}} >Delete</button>
+              <div className="buttons">
+                <button type='submit'>Update</button>
+                {/* <button type='button' onClick={() => {deleteHandler()}} >Delete</button> */}
+                <MuiModal
+                  btnText='Delete'
+                  function={deleteHandler}
+                  type='movie'
+                  name={movie ? movie.title : ''}
+                  movie={movie}
+                />
+              </div>
             </Form>
           </Formik>
-        </div> ) : (
-        <div style={{ maxWidth: 800, margin: "2rem auto", padding: "1rem" }}>
-        <Skeleton height={50} width="40%" sx={{ bgcolor: "#465335" }} />
-        <Skeleton height={30} width="60%" sx={{ bgcolor: "#465335", mb: 2 }} />
-        {[...Array(4)].map((_, i) => (
-          <Skeleton key={i} height={80} width="100%" sx={{ bgcolor: "#465335", mb: 2 }} />
-        ))}
-        <Skeleton height={40} width="30%" sx={{ bgcolor: "#465335" }} />
-      </div>
-      )}
+        </div> :
+        <p>Loading...</p>
+      }
     </section>
   );
 }
