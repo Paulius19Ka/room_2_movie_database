@@ -159,7 +159,11 @@ const Header = ({ onThemeToggle }: { onThemeToggle: () => void }) => {
 
         {/* Admin: AddNewMovie */}
         {/* {isLoggedIn && isAdmin && <NavLink to="/add">➕ AddNewMovie</NavLink>} */}
-        <NavLink to="/add">➕ AddNewMovie</NavLink>
+        {
+          loggedInUser?.role === 'admin' ?
+          <NavLink to="/add">➕ AddNewMovie</NavLink> :
+          <></>
+        }
         {/* User or guest: Watchlist */}
         {/* {!isAdmin && (
           <NavLink to={isLoggedIn ? "/user" : "/login"}>📄 Watchlist</NavLink>
