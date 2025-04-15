@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import MoviesContext from '../contexts/MoviesContext';
 import { MovieContextTypes } from '../types';
 import { useNavigate } from 'react-router';
-import { Container, Skeleton } from "@mui/material";
+import SkeletonBlock from '../UI/atoms/SkeletonBlock';
 
 type InitialValuesType = Movie;
 
@@ -70,13 +70,11 @@ const AddMovie = () => {
 
   const { addMovie } = useContext(MoviesContext) as MovieContextTypes;
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1500);
+  const [loading, setLoading] = useState(true); //
+  useEffect(() => { // 🆕
+    const timer = setTimeout(() => setLoading(false), 1000);
     return () => clearTimeout(timer);
   }, []);
-  
 
   const initialValues: InitialValuesType = {
     id: '',
@@ -224,17 +222,12 @@ const AddMovie = () => {
   })
 
   return (
-    <Container>
     <StyledSection>
+       {loading ? ( 
+        <SkeletonBlock variant="addMovie" />
+      ) : (
+        <>
       <h2>Add Movie</h2>
-      {loading ? (
-          <>
-            <Skeleton height={50} width="40%" sx={{ bgcolor: "#465335" }} />
-            <Skeleton height={600} width="100%" sx={{ bgcolor: "#465335" }} />
-            <Skeleton height={40} width="20%" sx={{ bgcolor: "#465335" }} />
-          </>
-        ) : (
-      
       <Formik 
         initialValues={initialValues}
         onSubmit={submitHandler}
@@ -572,12 +565,12 @@ const AddMovie = () => {
           </div>
           {/* <Field type='submit' value='Add' /> */}
           <button type='submit'>Add</button>
-        </Form>
-      </Formik>
-    )}
+          </Form>
+          </Formik>
+        </>
+      )}
     </StyledSection>
-  </Container>
-);
-};
+  );
+}
 
 export default AddMovie;

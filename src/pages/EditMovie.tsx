@@ -6,9 +6,9 @@ import * as Yup from 'yup';
 import MoviesContext from "../contexts/MoviesContext";
 import { MovieContextTypes } from "../types";
 import { AgeRating, Movie } from "../movieTypes";
-import { Skeleton } from "@mui/material";
 import MuiModal from "../UI/atoms/MuiModal";
 import styled from "styled-components";
+import SkeletonBlock from "../UI/atoms/SkeletonBlock"; //
 
 const StyledSection = styled.section`
   form{
@@ -77,7 +77,19 @@ const EditMovie = () => {
   const { id } = useParams();
   const { findMovie, editMovie, deleteMovie } = useContext(MoviesContext) as MovieContextTypes;
   const [movie, setMovie] = useState<Movie | undefined>(undefined);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  useEffect(() => {
+    if(id){
+      const foundMovie = findMovie(id);
+      if(foundMovie && typeof foundMovie === 'object'){
+        setMovie(foundMovie);
+      }
+    }
+    const timer = setTimeout(() => setLoading(false), 1000); 
+    return () => clearTimeout(timer);
+  }, [id, findMovie]);
+
 
   const initialValues: InitialValuesType = {
     id: '',
@@ -259,12 +271,14 @@ const EditMovie = () => {
 
   return (
     <StyledSection>
-      {
+      {loading ? (
+        <SkeletonBlock variant="editMovie" /> // 🆕 show skeleton while loading
+      ):
         movie ? (
         <div>
           <h2>Edit Movie</h2>
           <h3>{movie.title}</h3>
-          <Formik 
+          {<Formik 
             initialValues={initialValues}
             onSubmit={submitHandler}
             validationSchema={validSchema}
@@ -605,19 +619,13 @@ const EditMovie = () => {
                 />
               </div>
             </Form>
-          </Formik>
-        </div>)  : (
-        <div style={{ maxWidth: 800, margin: "2rem auto", padding: "1rem" }}>
-        <Skeleton height={50} width="40%" sx={{ bgcolor: "#465335" }} />
-        <Skeleton height={30} width="60%" sx={{ bgcolor: "#465335", mb: 2 }} />
-        {[...Array(4)].map((_, i) => (
-          <Skeleton key={i} height={80} width="100%" sx={{ bgcolor: "#465335", mb: 2 }} />
-        ))}
-        <Skeleton height={40} width="30%" sx={{ bgcolor: "#465335" }} />
-      </div>
+          </Formik>}
+          </div>
+      ) : (
+        <p>Movie not found.</p>
       )}
     </StyledSection>
   );
-}
- 
+};
+
 export default EditMovie;
