@@ -69,6 +69,7 @@ const Register = () => {
           id: generatedId(),
           passwordText: rest.password,
           password: bcrypt.hashSync(rest.password, 10),
+          profilePicture: rest.profilePicture || 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg',
           role: 'user'
         }
         setLoggedInUser(newUser);
