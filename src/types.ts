@@ -19,6 +19,7 @@ export type User = {
   password: string,
   passwordText: string,
   dob: string,
+  profilePicture: string,
   role: "admin" | "user"
 };
 
@@ -30,6 +31,6 @@ export type UsersContextTypes = {
   users: User[],
   loggedInUser: User | null,
   setLoggedInUser: React.Dispatch<React.SetStateAction<User | null>>,
-  dispatch: React.ActionDispatch<[action: UsersReducerActionTypes]>
+  dispatch: React.Dispatch<UsersReducerActionTypes>
 };
 
