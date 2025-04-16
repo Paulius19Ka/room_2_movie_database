@@ -11,32 +11,179 @@ import styled from "styled-components";
 import SkeletonBlock from "../UI/atoms/SkeletonBlock"; //
 
 const StyledSection = styled.section`
-  form{
+  padding: 1rem;
+  color: white;
+  max-width: 100%;
+
+  h2 {
+    text-align: left;
+    margin-bottom: 1rem;
+    color: yellow;
+    font-size: 2rem;
+    margin-left: 1rem;
+  }
+
+  form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    align-items: flex-start;
+    gap: 1rem;
+    align-items: stretch;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
   }
 
-  button{
-    background-color: #bababa;
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+    margin-left: 0.25rem;
+    color: yellow;
+  }
+
+  input,
+  textarea,
+  select {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #222;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .input-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .input-row input,
+  .input-row textarea {
+    flex: 1;
+    min-width: 200px;
+  }
+  .input-row > :nth-child(1) {
+    flex: 1;
+  }
+
+  .input-row > :nth-child(2) {
+    margin-left: 0.5rem;
+  }
+
+  .input-row button {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    background-color: #fdd835;
+    border: none;
+    border-radius: 4px;
+    color: #000;
+    white-space: nowrap;
+  }
+
+  .input-row button:hover {
+    background-color: #ffee58;
+  }
+
+  button {
+    background-color: #fdd835;
     color: #000000;
     border: none;
-    border-radius: 5px;
-    padding: 2px 7px;
-    font-size: 0.8rem;
+    border-radius: 8px;
+    padding: 6px 16px;
+    font-size: 1rem;
+    font-weight: bold;
     text-transform: uppercase;
+    transition: background-color 0.2s ease, transform 0.1s ease;
 
-    &:hover{
+    &:hover {
       cursor: pointer;
-      background-color: #ffffff;
+      /* background-color: #ffee58;
+      transform: scale(1.03); */
     }
   }
-  div.buttons{
+
+  div.buttons {
     display: flex;
-    gap: 5px;
+    gap: 10px;
+    margin-top: 1rem;
+  }
+  .actor-row {
+    border: 1px solid #444;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    background-color: #1c1c1c;
+  }
+
+  .remove-btn,
+  .add-btn {
+    background-color: #fdd835;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 1rem;
+    height: 28px;
+    width: 28px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+
+
+    /* &:hover {
+      background-color: #ffee58;
+      cursor: pointer; */
+    /* } */
+    .add-row,
+  .remove-row {
+    display: flex;
+    width: 100%;
+  }
+  
+
+  .remove-row {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+
+  .add-row {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 0.5rem;
+  }
+
+
+  .remove-button-wrapper {
+    margin-left: auto;
+  }
+  
+
+  .small-btn {
+    padding: 0;
+    font-size: 0.9rem;
+    height: 28px;
+    width: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .right {
+    align-self: flex-start;
+    margin-left: auto;
   }
 `;
+
 
 const EditMovie = () => {
 
@@ -284,7 +431,7 @@ const EditMovie = () => {
             validationSchema={validSchema}
           >
             <Form>
-              <div>
+              <div className="input-row">
                 <label htmlFor="title">Title:</label>
                 <Field
                   id='title' name='title'
@@ -293,7 +440,7 @@ const EditMovie = () => {
                 />
                 <ErrorMessage name='title' component='p' />
               </div>
-              <div>
+              <div className="input-row">
                 <label htmlFor="releaseYear">Release Year:</label>
                 <Field
                   id='releaseYear' name='releaseYear'
@@ -316,7 +463,7 @@ const EditMovie = () => {
                 </Field>
                 <ErrorMessage name='eirinCategory' component='p' />
               </div>
-              <div>
+              <div className="input-row">
                 <label htmlFor="length">Length:</label>
                 <Field
                   id='length' name='length'
@@ -350,77 +497,78 @@ const EditMovie = () => {
                 <ErrorMessage name='photos.poster' component='p' />
               </div>
               <div>
-                <label htmlFor="photos.cutscenes">Cutscenes:</label>
-                <FieldArray
-                  name='photos.cutscenes'
-                  render={arrayHelpers => (
-                    <>
-                      {
-                        arrayHelpers.form.values.photos.cutscenes.map((_: string, i: number) => (
-                          <div key={i}>
-                            <Field
-                              id={`photos.cutscenes.${i}`} name={`photos.cutscenes[${i}]`}
-                              placeholder='Url of a picture...'
-                              type='url'
-                            />
-                            <button type='button' onClick={() => arrayHelpers.remove(i)}>-</button>
-                          </div>
-                        ))
-                      }
-                      <button type='button' onClick={() => arrayHelpers.push('')}>+</button>
-                    </>
-                  )}
-                />
-                <ErrorMessage name='photos.cutscenes' component='p' />
-              </div>
-              <div>
-                <label htmlFor="videos.trailers">Trailers:</label>
-                <FieldArray
-                  name='videos.trailers'
-                  render={arrayHelpers => (
-                    <>
-                      {
-                        arrayHelpers.form.values.videos.trailers.map((_: string, i: number) => (
-                          <div key={i}>
-                            <Field
-                              id={`videos.trailers.${i}`} name={`videos.trailers[${i}]`}
-                              placeholder='Url of a video...'
-                              type='url'
-                            />
-                            <button type='button' onClick={() => arrayHelpers.remove(i)}>-</button>
-                          </div>
-                        ))
-                      }
-                      <button type='button' onClick={() => arrayHelpers.push('')}>+</button>
-                    </>
-                  )}
-                />
-                <ErrorMessage name='videos.trailers' component='p' />
-              </div>
-              <div>
-                <label htmlFor="videos.cutscenes">Video Cutscenes:</label>
-                <FieldArray
-                  name='videos.cutscenes'
-                  render={arrayHelpers => (
-                    <>
-                      {
-                        arrayHelpers.form.values.videos.cutscenes.map((_: string, i: number) => (
-                          <div key={i}>
-                            <Field
-                              id={`videos.cutscenes.${i}`} name={`videos.cutscenes[${i}]`}
-                              placeholder='Url of a video...'
-                              type='url'
-                            />
-                            <button type='button' onClick={() => arrayHelpers.remove(i)}>-</button>
-                          </div>
-                        ))
-                      }
-                      <button type='button' onClick={() => arrayHelpers.push('')}>+</button>
-                    </>
-                  )}
-                />
-                <ErrorMessage name='videos.cutscenes' component='p' />
-              </div>
+  <label htmlFor="photos.cutscenes">Cutscenes:</label>
+  <FieldArray
+    name='photos.cutscenes'
+    render={arrayHelpers => (
+      <>
+        {
+          arrayHelpers.form.values.photos.cutscenes.map((_: string, i: number) => (
+            <div className="input-row" key={i}>
+              <Field
+                id={`photos.cutscenes.${i}`} name={`photos.cutscenes[${i}]`}
+                placeholder='Url of a picture...'
+                type='url'
+              />
+              <button type='button' onClick={() => arrayHelpers.remove(i)}>-</button>
+            </div>
+          ))
+        }
+        <button type='button' onClick={() => arrayHelpers.push('')}>+</button>
+      </>
+    )}
+  />
+  <ErrorMessage name='photos.cutscenes' component='p' />
+</div>
+
+<div>
+  <label htmlFor="videos.trailers">Trailers:</label>
+  <FieldArray
+    name='videos.trailers'
+    render={arrayHelpers => (
+      <>
+        {
+          arrayHelpers.form.values.videos.trailers.map((_: string, i: number) => (
+            <div className="input-row" key={i}>
+              <Field
+                id={`videos.trailers.${i}`} name={`videos.trailers[${i}]`}
+                placeholder='Url of a video...'
+                type='url'
+              />
+              <button type='button' onClick={() => arrayHelpers.remove(i)}>-</button>
+            </div>
+          ))
+        }
+        <button type='button' onClick={() => arrayHelpers.push('')}>+</button>
+      </>
+    )}
+  />
+  <ErrorMessage name='videos.trailers' component='p' />
+</div>
+             <div>
+  <label htmlFor="videos.cutscenes">Video Cutscenes:</label>
+  <FieldArray
+    name='videos.cutscenes'
+    render={arrayHelpers => (
+      <>
+        {
+          arrayHelpers.form.values.videos.cutscenes.map((_: string, i: number) => (
+            <div className="input-row" key={i}>
+              <Field
+                id={`videos.cutscenes.${i}`} name={`videos.cutscenes[${i}]`}
+                placeholder='Url of a video...'
+                type='url'
+              />
+              <button type='button' onClick={() => arrayHelpers.remove(i)}>-</button>
+            </div>
+          ))
+        }
+        <button type='button' onClick={() => arrayHelpers.push('')}>+</button>
+      </>
+    )}
+  />
+  <ErrorMessage name='videos.cutscenes' component='p' />
+</div>
               {/* checkbox for genres */}
               <div>
                 <label htmlFor="genres">Genres:</label>
@@ -462,123 +610,116 @@ const EditMovie = () => {
                 <ErrorMessage name='castAndCrew.director' component='p' />
               </div>
               <div>
-                <label htmlFor="castAndCrew.writers">Writers:</label>
+  <label htmlFor="castAndCrew.writers">Writers:</label>
+  <FieldArray
+    name='castAndCrew.writers'
+    render={arrayHelpers => (
+      <>
+        {
+          arrayHelpers.form.values.castAndCrew.writers.map((_: { name: string, role: string }, i: number) => (
+            <div key={i} className="writer-row">
+              <div className="input-row">
+                <label htmlFor={`castAndCrew.writers[${i}].name`}>Name:</label>
+                <Field
+                  id={`castAndCrew.writers[${i}].name`}
+                  name={`castAndCrew.writers[${i}].name`}
+                  placeholder="Name of the writer..."
+                  type="text"
+                />
+                <ErrorMessage name={`castAndCrew.writers[${i}].name`} component="p" />
+              </div>
+              <div className="input-row">
+                <label htmlFor={`castAndCrew.writers[${i}].role`}>Role:</label>
+                <Field
+                  id={`castAndCrew.writers[${i}].role`}
+                  name={`castAndCrew.writers[${i}].role`}
+                  placeholder="Role of the writer..."
+                  type="text"
+                />
+                <ErrorMessage name={`castAndCrew.writers[${i}].role`} component="p" />
+              </div>
+              <div className="input-row">
+                <div style={{ flex: 1 }}></div>
+                <button className="remove-btn" type='button' onClick={() => arrayHelpers.remove(i)}>-</button>
+              </div>
+            </div>
+          ))
+        }
+        <button type="button" onClick={() => arrayHelpers.push({ name: '', role: '' })}>+</button>
+      </>
+    )}
+  />
+</div>
+<div>
+  <label htmlFor="castAndCrew.actors">Actors:</label>
+  <FieldArray
+    name="castAndCrew.actors"
+    render={arrayHelpers => (
+      <>
+        {
+          arrayHelpers.form.values.castAndCrew.actors?.map((_: string, i: number) => (
+            <div key={i} className="actor-row">
+              <div className="input-row">
+                <label htmlFor={`castAndCrew.actors[${i}].name`}>Name:</label>
+                <Field
+                  id={`castAndCrew.actors[${i}].name`}
+                  name={`castAndCrew.actors[${i}].name`}
+                  placeholder="Name of the actor..."
+                  type="text"
+                />
+                <ErrorMessage name={`castAndCrew.actors[${i}].name`} component="p" />
+              </div>
+              <div className="input-row">
+                <label>Character:</label>
                 <FieldArray
-                  name='castAndCrew.writers'
-                  render={arrayHelpers => (
+                  name={`castAndCrew.actors[${i}].character`}
+                  render={charHelpers => (
                     <>
                       {
-                        arrayHelpers.form.values.castAndCrew.writers.map((_: { name: string, role: string }, i: number) => (
-                          <div key={i}>
-                            <div>
-                              <label htmlFor={`castAndCrew.writers[${i}].name`}>Name:</label>
-                              <Field
-                                id={`castAndCrew.writers[${i}].name`}
-                                name={`castAndCrew.writers[${i}].name`}
-                                placeholder="Name of the writer..."
-                                type="text"
-                              />
-                              <ErrorMessage name={`castAndCrew.writers[${i}].name`} component="p" />
-                            </div>
-                            <div>
-                              <label htmlFor={`castAndCrew.writers[${i}].role`}>Role:</label>
-                              <Field
-                                id={`castAndCrew.writers[${i}].role`}
-                                name={`castAndCrew.writers[${i}].role`}
-                                placeholder="Role of the writer..."
-                                type="text"
-                              />
-                              <ErrorMessage name={`castAndCrew.writers[${i}].role`} component="p" />
-                            </div>
-                            <button type='button' onClick={() => arrayHelpers.remove(i)}>-</button>
+                        charHelpers.form.values.castAndCrew.actors[i]?.character?.map((_: string, j: number) => (
+                          <div key={j} className="input-row">
+                            <Field
+                              id={`castAndCrew.actors[${i}].character[${j}]`}
+                              name={`castAndCrew.actors[${i}].character[${j}]`}
+                              placeholder="Name of the character..."
+                              type="text"
+                            />
+                            <ErrorMessage name={`castAndCrew.actors[${i}].character[${j}]`} component="p" />
+                            <button className="remove-btn small-btn" type="button" onClick={() => charHelpers.remove(j)}>-</button>
                           </div>
                         ))
                       }
-                      <button
-                        type="button"
-                        onClick={() =>
-                          arrayHelpers.push({ name: '', role: '' })
-                        }
-                      >
-                        +
-                      </button>
+                      <div className="add-row">
+                        <button className="add-btn small-btn" type="button" onClick={() => charHelpers.push('')}>+</button>
+                      </div>
                     </>
                   )}
                 />
-                {/* <ErrorMessage name='castAndCrew.writers' component='p' /> */}
               </div>
-              {/* actors input fields */}
-              <div>
-                <label htmlFor="castAndCrew.actors">Actors:</label>
-                <FieldArray
-                  name="castAndCrew.actors"
-                  render={arrayHelpers => (
-                    <>
-                      {
-                        arrayHelpers.form.values.castAndCrew.actors?.map((_: string, i: number) => (
-                          <div key={i}>
-                            <div>
-                              <label htmlFor={`castAndCrew.actors[${i}].name`}>Name:</label>
-                              <Field
-                                id={`castAndCrew.actors[${i}].name`}
-                                name={`castAndCrew.actors[${i}].name`}
-                                placeholder="Name of the actor..."
-                                type="text"
-                              />
-                              <ErrorMessage name={`castAndCrew.actors[${i}].name`} component="p" />
-                            </div>
-                            <div>
-                              <label htmlFor={`castAndCrew.actors[${i}].character`}>Character:</label>
-                              <FieldArray
-                                name={`castAndCrew.actors[${i}].character`}
-                                render={charHelpers => (
-                                  <>
-                                    {
-                                      charHelpers.form.values.castAndCrew.actors[i]?.character?.map((_: string, j: number) => (
-                                        <div key={j}>
-                                          <Field
-                                            id={`castAndCrew.actors[${i}].character[${j}]`}
-                                            name={`castAndCrew.actors[${i}].character[${j}]`}
-                                            placeholder="Name of the character..."
-                                            type="text"
-                                          />
-                                          <ErrorMessage name={`castAndCrew.actors[${i}].character[${j}]`} component="p" />
-                                          <button type="button" onClick={() => charHelpers.remove(j)}>-</button>
-                                        </div>
-                                      ))
-                                    }
-                                    <button type="button" onClick={() => charHelpers.push('')}>+</button>
-                                  </>
-                                )}
-                              />
-                            </div>
-                            <div>
-                              <label htmlFor={`castAndCrew.actors[${i}].actorPhoto`}>Photo:</label>
-                              <Field
-                                id={`castAndCrew.actors[${i}].actorPhoto`}
-                                name={`castAndCrew.actors[${i}].actorPhoto`}
-                                placeholder="Photo url..."
-                                type="url"
-                              />
-                              <ErrorMessage name={`castAndCrew.actors[${i}].actorPhoto`} component="p" />
-                            </div>
-                            <button type="button" onClick={() => arrayHelpers.remove(i)}>-</button>
-                          </div>
-                        ))
-                      }
-                      <button
-                        type="button"
-                        onClick={() =>
-                          arrayHelpers.push({ name: '', character: [''], actorPhoto: '' })
-                        }
-                      >
-                        +
-                      </button>
-                    </>
-                  )}
+              <div className="input-row">
+                <label htmlFor={`castAndCrew.actors[${i}].actorPhoto`}>Photo:</label>
+                <Field
+                  id={`castAndCrew.actors[${i}].actorPhoto`}
+                  name={`castAndCrew.actors[${i}].actorPhoto`}
+                  placeholder="Photo url..."
+                  type="url"
                 />
-                {/* <ErrorMessage name="castAndCrew.actors" component="p" /> */}
+                <ErrorMessage name={`castAndCrew.actors[${i}].actorPhoto`} component="p" />
               </div>
+              <div className="remove-row">
+                <button className="remove-btn small-btn" type="button" onClick={() => arrayHelpers.remove(i)}>-</button>
+              </div>
+            </div>
+          ))
+        }
+        <div className="add-row">
+          <button className="add-btn small-btn" type="button" onClick={() => arrayHelpers.push({ name: '', character: [''], actorPhoto: '' })}>+</button>
+        </div>
+      </>
+    )}
+  />
+</div>
+
               <div>
                 <label htmlFor="reviews.metascore">Metascore:</label>
                 <Field
