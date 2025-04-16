@@ -81,7 +81,7 @@ const StyledSection = styled.section`
             padding: 0px 10px;
 
             &:hover{
-              background-color: #4d4d4d;
+              background-color: var(--hover-main);
             }
           }
         }
@@ -104,14 +104,14 @@ const StyledSection = styled.section`
           }
 
           > span.castType{
-            color: white;
+            color: var(--text-secondary);
           }
         }
 
         > div.cast{
           
           > a{
-            color: white;
+            color: var(--text-secondary);
             text-decoration: none;
             border: 1px solid grey;
             border-radius: 15px;

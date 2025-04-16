@@ -17,6 +17,7 @@ const ThemeProvider = ({ children }: ChildrenProp) => {
     document.documentElement.style.setProperty('--text-secondary', theme === 'dark' ? '#dcdcdc' : '#373737');
     document.documentElement.style.setProperty('--background-main', theme === 'dark' ? '#242424' : '#f3f3f3');
     document.documentElement.style.setProperty('--background-secondary', theme === 'dark' ? '#131313' : '#ffffff');
+    document.documentElement.style.setProperty('--hover-main', theme === 'dark' ? '#4d4d4d' : '#d1d1d1');
   }, [theme]);
 
   return (
