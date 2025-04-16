@@ -35,10 +35,41 @@ const StyledDiv = styled.div`
   > h3{
     align-self: flex-start;
     font-size: 1.1em;
+
+    > a{
+      display: block;
+      width: 180px;  
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      text-decoration: none;
+      color: white; 
+    }
+
+    > a:hover{
+      text-decoration: underline;
+    }
   }
 
   > h3, div{
     padding: 0 10px;
+  }
+
+  > button{
+    border: none;
+    background-color:rgba(121, 121, 121, 0.15); 
+    border-radius: 9999px;
+    padding: 10px;
+    width: 90%;
+
+    color: rgba(60, 109, 214, 0.9);
+    font-weight: bold;
+  }
+
+  > button:hover{
+    background-color: rgba(59, 74, 102, 0.46);
   }
 
   > img{
@@ -61,11 +92,54 @@ const StyledDiv = styled.div`
     padding-top: 5px;
 
     align-self: flex-start;
+
+    > span{
+      display: flex;
+    }
+      
+    > svg{
+      color: rgba(60, 109, 214, 0.9); 
+    }
+    
+    > svg:hover{
+      color: white; 
+      background-color:rgba(121, 121, 121, 0.15);
+    }
+
   }
 
   > div.info{
     padding-bottom: 5px;
-  }
+    display: flex;
+    justify-content: space-between;
+    margin-left: -15px;
+
+    
+    
+    > a{
+      display: flex;
+      flex-direction: row;
+      padding: 5px;
+
+      text-decoration: none;
+      color: white;
+    }
+
+    > a:hover{
+      background-color:rgba(121, 121, 121, 0.15); 
+      border-radius: 9999px;
+      padding: 5px;
+    }
+
+    > div > button > svg{
+      color: white; 
+    }
+    
+    > div > button > svg:hover{
+      background-color:rgba(121, 121, 121, 0.15);
+    }
+
+    }
 `;
 
 const MovieCard = ({ data }: Props) => {
