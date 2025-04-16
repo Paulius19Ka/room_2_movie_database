@@ -34,9 +34,12 @@ const StyledSection = styled.section`
 
       > button{
         border: none;
-        border-radius: 10px;
-        padding: 0 10px;
-        font-size: 1.1rem;
+        border-radius: 9999px;
+        padding: 15px 40px;
+        font-size: 1.5rem;
+        margin-top: 10px;
+        margin-left: 25px;
+        
 
         &:hover{
           cursor: pointer;
@@ -70,21 +73,34 @@ const StyledSection = styled.section`
       > div{
         display: flex;
         flex-direction: column;
-        
-
-        > div{
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
       }
     }
 
     > div.director{
 
       > div{
-        flex-direction: row;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+
+        > div{
+          display: flex;
+          align-items: center;
+          gap: 5px;
+        }
+      }
+    }
+
+    > div.writers{
+      
+      >div > div{
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        }
+     
+      > div > div > div{
+        display: flex;
+        align-items: center;
+        gap: 5px; 
       }
     }
 
@@ -93,9 +109,12 @@ const StyledSection = styled.section`
       > div{
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 5px;
 
         > div{
+
+        display: grid;
+        grid-template-columns: 1fr 2fr;
 
           padding-right: 5px;
 
@@ -120,6 +139,29 @@ const StyledSection = styled.section`
 
     h4{
       margin: 0;
+    }
+
+    @media (min-width: 768px){
+
+      > div.director > div{
+        display: grid;
+        grid-template-columns: 2fr 2fr;
+      }
+
+      > div.writers{
+      
+      >div > div{
+        display: grid;
+        grid-template-columns: 2fr 2fr;
+        }
+      } 
+        
+      > div.actors{
+        > div > div{
+          display: grid; 
+          grid-template-columns: 2fr 2fr; 
+        }
+      }
     }
   }
 `;

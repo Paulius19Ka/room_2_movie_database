@@ -36,6 +36,28 @@ const style = {
   p: 4,
 };
 
+const StyledDeleteModal = styled.div`
+display: flex;
+flex-direction: column;
+gap: 15px;
+
+> button{
+      border: none;
+      background-color:rgba(121, 121, 121, 0.15); 
+      border-radius: 9999px;
+      padding: 10px 20px;
+      
+      cursor: pointer;
+      color: rgba(60, 109, 214, 0.9);
+      font-weight: bold;
+    }
+
+    >button:hover{
+      background-color: rgba(59, 74, 102, 0.75);
+      color: white;
+    }
+`
+
 const StyledInfoDiv = styled.div`
   > div{
     display: grid;
@@ -176,43 +198,43 @@ const MuiModal = (props: Props) => {
           <Box sx={style}>
             {
               props.btnText === 'Delete' ?
-                <>
-                  <Typography id="transition-modal-title" variant="h6" component="h2">
-                    Are you sure you want to {props.btnText.toLowerCase()} the {props.type} "{props.name}"?
-                  </Typography>
-                  <Button onClick={() => props.function()}>{props.btnText}</Button>
-                  <Button onClick={handleClose}>Cancel</Button>
-                </> :
-                props.movie && props.btnText === 'infoIcon' ?
-                  <StyledInfoDiv>
+              <>
+                <StyledDeleteModal>
+                <Typography id="transition-modal-title" variant="h6" component="h2">
+                  Are you sure you want to {props.btnText.toLowerCase()} the {props.type} "{props.name}"?
+                </Typography>
+                <Button onClick={() => props.function()}>{props.btnText}</Button>
+                <Button onClick={handleClose}>Cancel</Button>
+                </StyledDeleteModal>
+              </> : 
+              props.movie && props.btnText === 'infoIcon' ?
+              <StyledInfoDiv>
+                <div>
+                  <img src={props.movie.photos.poster[0]} alt={props.movie.title} />
+                  <div>
+                    <Typography id="transition-modal-title" variant="h6" component="h2">
+                      <Link to={`/${props.movie.id}`}>{props.movie.title}</Link>
+                    </Typography>
                     <div>
-                      <img src={props.movie.photos.poster[0]} alt={props.movie.title} />
-                      <div>
-                        <Typography id="transition-modal-title" variant="h6" component="h2">
-                          <Link to={`/${props.movie.id}`}>{props.movie.title}</Link>
-                        </Typography>
-                        <div>
-                          <div className='info'>
-                            <span>{props.movie.releaseYear}</span>
-                            <span>{props.movie.length} min</span>
-                            <span>{props.movie.eirinCategory}</span>
-                          </div>
-                          <span className='genres'>{props.movie.genres.join(' ⬩ ')}</span>
-                        </div>
-                        <span>{props.movie.IMDB?.totalScore}/10</span>
+                      <div className='info'>
+                        <span>{props.movie.releaseYear}</span>
+                        <span>{props.movie.length} min</span>
+                        <span>{props.movie.eirinCategory}</span>
                       </div>
-                      <span><StarIcon />{props.movie.IMDB?.totalScore}/10</span>
+                      <span className='genres'>{props.movie.genres.join(' ⬩ ')}</span>
                     </div>
-                    <p>{props.movie.description}</p>
-                    <div className='buttons'>
-                      <button onClick={addToWatchlist}>+ Watchlist</button>
-                      <button onClick={handleClose}>Close</button>
-                    </div>
-                    {watchlistMessage && <div className="message">{watchlistMessage}</div>}
-                  </StyledInfoDiv> :
-                  props.movie && props.btnText === 'trailerIcon' ?
-                    <>IFRAME FOR TRAILER HERE</> :
-                    <p>Loading...</p>
+                    <span><StarIcon />{props.movie.IMDB?.totalScore}/10</span>
+                  </div>
+                </div>
+                <p>{props.movie.description}</p>
+                <div className='buttons'>
+                  <button>+ Watchlist</button>
+                  <button onClick={handleClose}>Close</button>
+                </div>
+              </StyledInfoDiv> :
+              props.movie && props.btnText === 'trailerIcon' ?
+              <>IFRAME FOR TRAILER HERE</> :
+              <p>Loading...</p>
             }
           </Box>
         </Fade>
