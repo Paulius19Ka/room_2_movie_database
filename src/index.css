@@ -3,6 +3,7 @@
   --text-secondary: #dcdcdc;
 
   --background-main: #242424;
+  --background-secondary: #131313;
 
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -11,20 +12,6 @@
   color-scheme: light dark;
   color: var(--text-main);
   background-color: var(--background-main);
-}
-
-.themeDark{
-  --text-main: #f3f3f3;
-  --text-secondary: #dcdcdc;
-
-  --background-main: #242424;
-}
-
-.themeLight{
-  --text-main: #080808;
-  --text-secondary: #373737;
-
-  --background-main: #f3f3f3;
 }
 
 *{
