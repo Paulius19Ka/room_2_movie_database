@@ -43,7 +43,7 @@ const StyledSection = styled.section`
 
         &:hover{
           cursor: pointer;
-          background-color: #171717;
+          background-color: var(--hover-main);
         }
       }
 
@@ -66,7 +66,7 @@ const StyledSection = styled.section`
     gap: 20px;
 
     > div.director, div.writers, div.actors{
-      border: 1px dashed grey;
+      border: 1px dashed var(--hover-main);
       border-radius: 7px;
       padding: 5px 10px;
       
@@ -119,7 +119,7 @@ const StyledSection = styled.section`
           padding-right: 5px;
 
           &:nth-child(odd){
-            background-color: #171717;
+            background-color: var(--background-secondary);
           }
 
           > div{
@@ -214,8 +214,8 @@ const Credits = () => {
               <h4>Written by</h4>
               <div>
                 {
-                  movie.castAndCrew.writers.map(writer => (
-                    <div>
+                  movie.castAndCrew.writers.map((writer, i) => (
+                    <div key={i}>
                       <span>{writer.name}</span>
                       <div>
                         <span>...</span>
@@ -230,8 +230,8 @@ const Credits = () => {
               <h4>Cast</h4>
               <div>
                 {
-                  movie.castAndCrew.actors.map(actor => (
-                    <div>
+                  movie.castAndCrew.actors.map((actor, i) => (
+                    <div key={i}>
                       <div>
                         <img src={actor.actorPhoto} alt={actor.name} />
                         <span>{actor.name}</span>

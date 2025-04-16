@@ -267,7 +267,7 @@ const Header = () => {
           loggedInUser ?
             loggedInUser?.role === "admin" ?
               <>
-                <NavLink to="/add">➕ Add New Movie</NavLink>
+                <NavLink to="/add">➕ Add</NavLink>
                 <LogoutButton onClick={handleLogout}>Log Out</LogoutButton>
               </> :
               <>
