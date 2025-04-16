@@ -57,6 +57,10 @@ const StyledSection = styled.section`
       border: none;
     }
 
+    input[type="url"]{
+      width: calc(100% - 20px);
+    }
+
     > div, div.writers, div.actors{
       background-color: var(--background-secondary);
       padding: 20px;
@@ -72,6 +76,48 @@ const StyledSection = styled.section`
         border: 1px dashed var(--hover-main);
         border-radius: 10px;
         padding: 10px;
+      }
+    }
+
+    > div.writers{
+      > div{
+
+        > div{
+          display: flex;
+          /* gap: 5px; */
+          align-items: center;
+
+          > label{
+            width: 55px;
+          }
+        }
+      }
+    }
+
+    > div.actors{
+
+      > div{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        > div{
+          display: flex;
+          gap: 5px;
+          align-items: center;
+
+          > label{
+            width: 75px;
+          }
+
+          > input{
+            width: calc(100% - 75px);
+          }
+
+          > button{
+            align-self: center;
+          }
+        }
       }
     }
 
