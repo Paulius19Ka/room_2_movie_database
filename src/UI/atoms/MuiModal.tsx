@@ -13,6 +13,7 @@ import { useContext } from 'react';
 import UsersContext from '../../contexts/UsersContext';
 import { UsersContextTypes } from '../../types';
 import { useNavigate } from 'react-router';
+import StarIcon from '@mui/icons-material/Star';
 
 type Props = {
   btnText: string,
@@ -44,9 +45,30 @@ const StyledInfoDiv = styled.div`
 
     > div{
 
+    margin-left: 15px;
+
       > h2{
         margin: 0;
-      }
+
+        > a{
+          color: white;
+          text-decoration: none;
+        }
+
+        > a:hover{
+          text-decoration: underline; 
+        }
+
+        }
+
+        > span{
+          display: flex;
+          margin-top: 10px;
+        }
+        
+        > span > svg{
+          color:rgb(255, 238, 0); 
+        }
 
       > div{
         
@@ -67,12 +89,29 @@ const StyledInfoDiv = styled.div`
   }
 
   > p{
-    margin: 0;
+    margin-top: 15px;
   }
 
   > div.buttons{
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+
+    > button{
+      border: none;
+      background-color:rgba(121, 121, 121, 0.15); 
+      border-radius: 9999px;
+      padding: 10px 20px;
+      margin-top: 15px;
+
+      cursor: pointer;
+      color: rgba(60, 109, 214, 0.9);
+      font-weight: bold;
+    }
+
+    >button:hover{
+      background-color: rgba(59, 74, 102, 0.75);
+      color: white;
+    }
   }
 
   > .message {
@@ -162,13 +201,14 @@ const MuiModal = (props: Props) => {
                         </div>
                         <span>{props.movie.IMDB?.totalScore}/10</span>
                       </div>
+                      <span><StarIcon />{props.movie.IMDB?.totalScore}/10</span>
                     </div>
                     <p>{props.movie.description}</p>
                     <div className='buttons'>
                       <button onClick={addToWatchlist}>+ Watchlist</button>
                       <button onClick={handleClose}>Close</button>
                     </div>
-                    {watchlistMessage && <div className="message">{watchlistMessage}</div>} {/* Show the message */}
+                    {watchlistMessage && <div className="message">{watchlistMessage}</div>}
                   </StyledInfoDiv> :
                   props.movie && props.btnText === 'trailerIcon' ?
                     <>IFRAME FOR TRAILER HERE</> :
