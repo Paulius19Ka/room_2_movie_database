@@ -43,7 +43,7 @@ const StyledSection = styled.section`
 
         &:hover{
           cursor: pointer;
-          background-color: #171717;
+          background-color: var(--hover-main);
         }
       }
 
@@ -66,7 +66,7 @@ const StyledSection = styled.section`
     gap: 20px;
 
     > div.director, div.writers, div.actors{
-      border: 1px dashed grey;
+      border: 1px dashed var(--hover-main);
       border-radius: 7px;
       padding: 5px 10px;
       
@@ -119,7 +119,7 @@ const StyledSection = styled.section`
           padding-right: 5px;
 
           &:nth-child(odd){
-            background-color: #171717;
+            background-color: var(--background-secondary);
           }
 
           > div{

@@ -16,14 +16,14 @@ const StyledLogin = styled.section`
 
   >h2 {
     text-align: center;
-    color: white;
+    color: var(--text-main);
   }
 
   >form {
     display: grid;
     flex-direction: column;
     align-items: flex-start;
-    color: white;
+    color: var(--text-main);
     width: 300px;
 
     input[type="text"],
@@ -37,6 +37,15 @@ const StyledLogin = styled.section`
     >div {
       margin-bottom: 10px;
 
+      > input{
+        background-color: var(--background-secondary);
+        color: var(--text-main);
+
+        &:focus{
+          background-color: var(--background-main);
+        }
+      }
+
       >label.loggedIn {
         font-size: 12px;
       }
@@ -44,7 +53,7 @@ const StyledLogin = styled.section`
   }
   > a {
     margin-top: 12px;
-    color: yellow;
+    color: var(--accent-main);
     font-size: 14px;
     text-decoration: underline;
     margin-top: 20px;
@@ -55,8 +64,8 @@ const StyledLogin = styled.section`
     }
   }
   >a.homeLink{
-    color: white;
-    border: 1px solid white;
+    color: var(--text-main);
+    border: 1px solid var(--text-main);
     border-radius: 20px;
     padding: 5px;
     text-decoration: none;

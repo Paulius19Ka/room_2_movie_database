@@ -48,20 +48,69 @@ const StyledSection = styled.section`
     display: flex;
     flex-direction: column;
     gap: 10px;
-    align-items: flex-start;
+    align-items: center;
+
+    input, textarea, select{
+      background-color: var(--background-main);
+      color: var(--text-main);
+      padding: 5px;
+      border: none;
+    }
+
+    > div, div.writers, div.actors{
+      background-color: var(--background-secondary);
+      padding: 20px;
+      border-radius: 10px;
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    > div.writers, div.actors{
+      > div{
+        border: 1px dashed var(--hover-main);
+        border-radius: 10px;
+        padding: 10px;
+      }
+    }
+
+    > button{
+      align-self: center;
+
+      padding: 10px 20px;
+      font-size: 1.1em;
+    }
   }
   button{
-    background-color: #bababa;
-    color: #000000;
+    background-color: var(--text-secondary);
+    color: var(--background-secondary);
     border: none;
     border-radius: 5px;
     padding: 2px 7px;
     font-size: 0.8rem;
     text-transform: uppercase;
 
+    align-self: flex-start;
+
     &:hover{
       cursor: pointer;
-      background-color: #ffffff;
+      background-color: var(--hover-main);
+      color: var(--background-secondary);
+    }
+  }
+
+  
+  @media (min-width: 768px){
+    > h2{
+      text-align: center;
+    }
+
+    > form{
+      
+      > div{
+        max-width: 70%;
+      }
     }
   }
 `;
@@ -414,7 +463,7 @@ const AddMovie = () => {
             />
             <ErrorMessage name='castAndCrew.director' component='p' />
           </div>
-          <div>
+          <div className='writers'>
             <label htmlFor="castAndCrew.writers">Writers:</label>
             <FieldArray
               name='castAndCrew.writers'
@@ -463,7 +512,7 @@ const AddMovie = () => {
             {/* <ErrorMessage name='castAndCrew.writers' component='p' /> */}
           </div>
           {/* actors input fields */}
-          <div>
+          <div className='actors'>
             <label htmlFor="castAndCrew.actors">Actors:</label>
             <FieldArray
               name="castAndCrew.actors"

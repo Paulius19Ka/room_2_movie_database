@@ -1,6 +1,6 @@
 :root {
   --text-main: #f3f3f3;
-  --text-secondary: #dcdcdc;
+  --text-secondary: #c9c9c9;
 
   --background-main: #242424;
   --background-secondary: #131313;
@@ -8,6 +8,8 @@
   --hover-main: #4d4d4d;
 
   --skeleton-main: #414141;
+
+  --accent-main: #d4b413;
 
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

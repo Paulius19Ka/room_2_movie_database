@@ -24,7 +24,7 @@ const Watchlist = () => {
 
     return (
         <section>
-            <h2>Watchlist</h2>
+            <h2 style={{ textAlign: "center" }}>{loggedInUser?.username}'s Watchlist</h2>
             <StyledDiv>
                 {
                     loggedInUser && movies ?
