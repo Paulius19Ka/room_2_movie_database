@@ -16,14 +16,14 @@ const StyledLogin = styled.section`
 
   >h2 {
     text-align: center;
-    color: yellow;
+    color: white;
   }
 
   >form {
     display: grid;
     flex-direction: column;
     align-items: flex-start;
-    color: yellow;
+    color: white;
     width: 300px;
 
     input[type="text"],
@@ -41,23 +41,29 @@ const StyledLogin = styled.section`
         font-size: 12px;
       }
     }
-
-    >input[type="submit"] {
-      color: yellow;
-    }
-
   }
   > a {
     margin-top: 12px;
     color: yellow;
     font-size: 14px;
     text-decoration: underline;
+    margin-top: 20px;
 
     &:hover {
       text-decoration: underline;
       color: gold;
     }
   }
+  >a.homeLink{
+    color: white;
+    border: 1px solid white;
+    border-radius: 20px;
+    padding: 5px;
+    text-decoration: none;
+    width: 70px;
+    text-align: center;
+    margin-top: 20px;
+  } 
 `
 
 const Login = () => {
@@ -169,6 +175,7 @@ const Login = () => {
             error && <p>{error}</p>
           }
           <Link to="/register">Don't have an account yet? Go create one.</Link>
+          <Link to="/" className='homeLink'>Home</Link>
         </>
       )}
     </StyledLogin>
