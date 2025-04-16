@@ -177,7 +177,11 @@ const Header = ({ onThemeToggle }: { onThemeToggle: () => void }) => {
           </>
         ) : (
           <Avatar>
-            <img src="https://i.pravatar.cc/150?u=user" alt="avatar" />
+            {
+              loggedInUser.profilePicture ?
+              <img src={loggedInUser.profilePicture} alt={loggedInUser.username} /> :
+              <img src="https://i.pravatar.cc/150?u=user" alt="default avatar" />
+            }
             <span>{loggedInUser.username}</span>
           </Avatar>
         )}
@@ -202,7 +206,18 @@ const Header = ({ onThemeToggle }: { onThemeToggle: () => void }) => {
           />
         </IconButton>
 
-        <NavLink to="/login">Sign In</NavLink>
+        {
+          loggedInUser ?
+          <Avatar>
+            {
+              loggedInUser.profilePicture ?
+              <img src={loggedInUser.profilePicture} alt={loggedInUser.username} /> :
+              <img src="https://i.pravatar.cc/150?u=user" alt="default avatar" />
+            }
+            <span>{loggedInUser.username}</span>
+          </Avatar> :
+          <NavLink to="/login">Sign In</NavLink>
+        }
 
         <UseAppButton to="/app">Use App</UseAppButton>
       </MobileSection>

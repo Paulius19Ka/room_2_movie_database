@@ -1,12 +1,13 @@
 import { v4 as genID } from 'uuid';
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import * as Yup from 'yup';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AgeRating, Movie } from '../movieTypes';
 import styled from 'styled-components';
 import MoviesContext from '../contexts/MoviesContext';
 import { MovieContextTypes } from '../types';
 import { useNavigate } from 'react-router';
+import SkeletonBlock from '../UI/atoms/SkeletonBlock';
 
 type InitialValuesType = Movie;
 
@@ -69,6 +70,11 @@ const AddMovie = () => {
 
   const { addMovie } = useContext(MoviesContext) as MovieContextTypes;
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true); //
+  useEffect(() => { // 🆕
+    const timer = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const initialValues: InitialValuesType = {
     id: '',
@@ -217,6 +223,10 @@ const AddMovie = () => {
 
   return (
     <StyledSection>
+       {loading ? ( 
+        <SkeletonBlock variant="addMovie" />
+      ) : (
+        <>
       <h2>Add Movie</h2>
       <Formik 
         initialValues={initialValues}
@@ -555,10 +565,12 @@ const AddMovie = () => {
           </div>
           {/* <Field type='submit' value='Add' /> */}
           <button type='submit'>Add</button>
-        </Form>
-      </Formik>
+          </Form>
+          </Formik>
+        </>
+      )}
     </StyledSection>
   );
 }
- 
+
 export default AddMovie;

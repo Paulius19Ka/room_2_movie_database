@@ -21,7 +21,6 @@ const Home = () => {
 
   return (
     <section>
-      <h2>Home</h2>
       <StyledDiv>
         {
           movies ?
@@ -31,7 +30,7 @@ const Home = () => {
               key={movie.id}
             />
           ) :
-          <p>SKELETON HERE!!!!!!!!!</p>
+          <p>Loading...</p>
         }
       </StyledDiv>
     </section>

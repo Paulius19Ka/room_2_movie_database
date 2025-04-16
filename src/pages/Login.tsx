@@ -1,9 +1,10 @@
 import { useFormik } from 'formik';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router';
 import bcrypt from 'bcryptjs';
 import * as Yup from 'yup';
 import styled from 'styled-components';
+import SkeletonBlock from '../UI/atoms/SkeletonBlock';
 
 import UsersContext from '../contexts/UsersContext';
 import { UsersContextTypes } from '../types';
@@ -65,6 +66,13 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -107,6 +115,10 @@ const Login = () => {
   return (
     <StyledLogin>
       <h2>Login</h2>
+      {loading ? (
+        <SkeletonBlock variant="login" />
+      ) : (
+        <>
       <form onSubmit={formik.handleSubmit}>
         <div>
           <label
@@ -157,8 +169,10 @@ const Login = () => {
         error && <p>{error}</p>
       }
       <Link to="/register">Don't have an account yet? Go create one.</Link>
+      </>
+      )}
     </StyledLogin>
   );
-}
+};
 
 export default Login;
