@@ -154,6 +154,7 @@ const Register = () => {
               <input
                 type="text"
                 name="username" id="username"
+                placeholder="Create username"
                 value={formik.values.username}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -169,6 +170,7 @@ const Register = () => {
               <input
                 type="email"
                 name="email" id="email"
+                placeholder='Enter your email'
                 value={formik.values.email}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -184,6 +186,7 @@ const Register = () => {
               <input
                 type="password"
                 name="password" id="password"
+                placeholder='Create password'
                 value={formik.values.password}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -199,6 +202,7 @@ const Register = () => {
               <input
                 type="password"
                 name="passwordRepeat" id="passwordRepeat"
+                placeholder='Repeat password'
                 value={formik.values.passwordRepeat}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -229,6 +233,7 @@ const Register = () => {
               <input
                 type="url"
                 name="profilePicture" id="profilePicture"
+                placeholder="Enter a valid URL"
                 value={formik.values.profilePicture}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
