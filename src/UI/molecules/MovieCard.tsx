@@ -7,7 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 
 import { Movie } from "../../movieTypes";
 import { Link, useNavigate } from "react-router";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import UsersContext from "../../contexts/UsersContext";
 import { UsersContextTypes } from "../../types";
 import MuiModal from "../atoms/MuiModal";
@@ -148,8 +148,32 @@ const StyledDiv = styled.div`
 
 const MovieCard = ({ data }: Props) => {
 
-  const { loggedInUser } = useContext(UsersContext) as UsersContextTypes;
+  const { loggedInUser, dispatch } = useContext(UsersContext) as UsersContextTypes;
   const navigate = useNavigate();
+  const [watchlistMessage, setWatchlistMessage] = useState<string>('');
+
+  const addToWatchlist = () => {
+    if (!loggedInUser) {
+      navigate('/login');
+      return;
+    }
+
+    const alreadyInWatchlist = loggedInUser.watchlistItems?.includes(data.id);
+
+    if (alreadyInWatchlist) {
+      setWatchlistMessage('Already in Watchlist')
+    } else {
+      dispatch({
+        type: 'addToWatchlist',
+        userId: loggedInUser.id,
+        movieId: data.id
+      });
+      setWatchlistMessage('Added to Watchlist');
+    }
+    setTimeout(() => {
+      setWatchlistMessage('')
+    }, 2000);
+  };
 
   return (
     <StyledDiv>
@@ -157,35 +181,32 @@ const MovieCard = ({ data }: Props) => {
       <div className="rating">
         {
           data.IMDB?.totalScore ?
-          <span><StarIcon />{data.IMDB?.totalScore}</span> :
-          <span><StarIcon />0</span>
+            <span><StarIcon />{data.IMDB?.totalScore}</span> :
+            <span><StarIcon />0</span>
         }
         <StarBorderIcon /> {/* add rating functionality here */}
       </div>
-      <h3><Link to={`${data.id}`}>{data.title}</Link></h3>
-      {
-        loggedInUser ?
-        <button>+ Watchlist</button> :
-        <button onClick={() => navigate('/login')}>+ Watchlist</button>
-      }
+      <h3><Link to={`/${data.id}`}>{data.title}</Link></h3>
+      <button onClick={addToWatchlist}>+ Watchlist</button>
+      {watchlistMessage && <span style={{ color: 'yellow', fontWeight: 'bold' }}>{watchlistMessage}</span>}
       <div className="info">
         <Link to={data.videos.trailers[0]} target="_blank"><PlayArrowIcon />Trailer</Link>
         {/* <Link to={`${data.id}`}><InfoOutlineIcon /></Link> */}
         <MuiModal
           btnText='infoIcon'
-          function={() => {}}
+          function={() => { }}
           type='info'
           name={data ? data.title : ''}
           movie={data}
         />
         {
           loggedInUser?.role === 'admin' ?
-          <Link to={`edit/${data.id}`}><EditIcon /></Link> :
-          <></>
+            <Link to={`edit/${data.id}`}><EditIcon /></Link> :
+            <></>
         }
       </div>
     </StyledDiv>
   );
 }
- 
+
 export default MovieCard;

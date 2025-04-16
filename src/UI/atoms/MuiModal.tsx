@@ -9,6 +9,10 @@ import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import { Movie } from '../../movieTypes';
 import styled from 'styled-components';
 import { Link } from 'react-router';
+import { useContext } from 'react';
+import UsersContext from '../../contexts/UsersContext';
+import { UsersContextTypes } from '../../types';
+import { useNavigate } from 'react-router';
 import StarIcon from '@mui/icons-material/Star';
 
 type Props = {
@@ -131,12 +135,48 @@ const StyledInfoDiv = styled.div`
       color: white;
     }
   }
+
+  > .message {
+    color: yellow;
+    margin-top: 10px;
+    font-size: 1em;
+  }
+
 `;
 
-const MuiModal = ( props : Props) => {
+const MuiModal = (props: Props) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const { loggedInUser, dispatch } = useContext(UsersContext) as UsersContextTypes; // Access context
+  const navigate = useNavigate();
+  const [watchlistMessage, setWatchlistMessage] = React.useState<string>('');
+
+
+  const addToWatchlist = () => {
+    if (!loggedInUser) {
+      navigate('/login');
+      return;
+    }
+
+    const movieId = props.movie.id;
+    const alreadyInWatchlist = loggedInUser.watchlistItems?.includes(movieId);
+
+    if (alreadyInWatchlist) {
+      setWatchlistMessage('Already in Watchlist');
+    } else {
+      dispatch({
+        type: 'addToWatchlist',
+        userId: loggedInUser.id,
+        movieId: movieId
+      });
+      setWatchlistMessage('Added to Watchlist');
+    }
+    setTimeout(() => {
+      setWatchlistMessage('');
+      handleClose();
+    }, 2000);
+  };
 
   return (
     <div>

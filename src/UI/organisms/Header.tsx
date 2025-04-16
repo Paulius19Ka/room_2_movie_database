@@ -3,6 +3,7 @@ import { NavLink as RouterLink } from "react-router";
 import { useContext } from "react";
 import UsersContext from "../../contexts/UsersContext";
 // import { User } from "../../types";
+import { useNavigate } from "react-router";
 
 const HeaderWrapper = styled.header`
   background-color: #121212;
@@ -88,6 +89,32 @@ const UseAppButton = styled(RouterLink)`
   white-space: nowrap;
 `;
 
+const LogoutButton = styled.button`
+  background-color: #f5c518;
+  color: black;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  display: inline-block;
+  text-align: center;
+
+  height: 100%; // optional if your app button has fixed height
+
+  &:hover {
+    background-color: #d4b413;
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
+
 const Avatar = styled.div`
   display: flex;
   align-items: center;
@@ -101,10 +128,16 @@ const Avatar = styled.div`
 `;
 
 const Header = ({ onThemeToggle }: { onThemeToggle: () => void }) => {
-  const { loggedInUser } = useContext(UsersContext)!;
+  const { loggedInUser, setLoggedInUser } = useContext(UsersContext)!;
 
   const isLoggedIn = !!loggedInUser;
-  // const isAdmin = loggedInUser?.role === "admin";
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setLoggedInUser(null);
+    localStorage.removeItem('loggedInUser');
+    navigate('/');
+  };
 
   return (
     <HeaderWrapper>
@@ -161,31 +194,35 @@ const Header = ({ onThemeToggle }: { onThemeToggle: () => void }) => {
         {/* {isLoggedIn && isAdmin && <NavLink to="/add">➕ AddNewMovie</NavLink>} */}
         {
           loggedInUser?.role === 'admin' ?
-          <NavLink to="/add">➕ AddNewMovie</NavLink> :
-          <></>
+            <NavLink to="/add">➕ Add New Movie</NavLink> :
+            <></>
         }
         {/* User or guest: Watchlist */}
         {/* {!isAdmin && (
           <NavLink to={isLoggedIn ? "/user" : "/login"}>📄 Watchlist</NavLink>
         )} */}
-        <NavLink to={isLoggedIn ? "/user" : "/login"}>📄 Watchlist</NavLink>
+        <NavLink to={isLoggedIn ? "/watchlist" : "/login"}>📄 Watchlist</NavLink>
         {/* Guest: Sign In / Register */}
         {!isLoggedIn ? (
           <>
-            <NavLink to="/login">Sign In</NavLink>
-            <NavLink to="/register">Register</NavLink>
+            <UseAppButton to="/login">Log In</UseAppButton>
+            <UseAppButton to="/register">Register</UseAppButton>
           </>
         ) : (
           <Avatar>
             {
               loggedInUser.profilePicture ?
-              <img src={loggedInUser.profilePicture} alt={loggedInUser.username} /> :
-              <img src="https://i.pravatar.cc/150?u=user" alt="default avatar" />
+                <img src={loggedInUser.profilePicture} alt={loggedInUser.username} /> :
+                <img src="https://i.pravatar.cc/150?u=user" alt="default avatar" />
             }
             <span>{loggedInUser.username}</span>
           </Avatar>
         )}
-
+        {
+          loggedInUser ?
+            <LogoutButton onClick={handleLogout}>Log Out</LogoutButton> :
+            <></>
+        }
         <IconButton onClick={onThemeToggle}>🌓</IconButton>
       </DesktopSection>
 
@@ -208,18 +245,34 @@ const Header = ({ onThemeToggle }: { onThemeToggle: () => void }) => {
 
         {
           loggedInUser ?
-          <Avatar>
-            {
-              loggedInUser.profilePicture ?
-              <img src={loggedInUser.profilePicture} alt={loggedInUser.username} /> :
-              <img src="https://i.pravatar.cc/150?u=user" alt="default avatar" />
-            }
-            <span>{loggedInUser.username}</span>
-          </Avatar> :
-          <NavLink to="/login">Sign In</NavLink>
-        }
+            <Avatar>
+              {
+                loggedInUser.profilePicture ?
+                  <img src={loggedInUser.profilePicture} alt={loggedInUser.username} /> :
+                  <img src="https://i.pravatar.cc/150?u=user" alt="default avatar" />
+              }
+              <span>{loggedInUser.username}</span>
+            </Avatar> :
+            <>
+              <UseAppButton to="/login">Log In</UseAppButton>
+              <UseAppButton to="/register">Register</UseAppButton>
+            </>
 
-        <UseAppButton to="/app">Use App</UseAppButton>
+        }
+        {
+          loggedInUser ?
+            loggedInUser?.role === "admin" ?
+              <>
+                <NavLink to="/add">➕ Add New Movie</NavLink>
+                <LogoutButton onClick={handleLogout}>Log Out</LogoutButton>
+              </> :
+              <>
+                <NavLink to="/watchlist">📄 Watchlist</NavLink>
+                <LogoutButton onClick={handleLogout}>Log Out</LogoutButton>
+              </>
+            :
+            <></>
+        }
       </MobileSection>
     </HeaderWrapper>
   );
