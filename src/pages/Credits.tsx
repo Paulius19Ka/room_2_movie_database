@@ -34,9 +34,12 @@ const StyledSection = styled.section`
 
       > button{
         border: none;
-        border-radius: 10px;
-        padding: 0 10px;
-        font-size: 1.1rem;
+        border-radius: 9999px;
+        padding: 15px 40px;
+        font-size: 1.5rem;
+        margin-top: 10px;
+        margin-left: 25px;
+        
 
         &:hover{
           cursor: pointer;
@@ -136,6 +139,29 @@ const StyledSection = styled.section`
 
     h4{
       margin: 0;
+    }
+
+    @media (min-width: 768px){
+
+      > div.director > div{
+        display: grid;
+        grid-template-columns: 2fr 2fr;
+      }
+
+      > div.writers{
+      
+      >div > div{
+        display: grid;
+        grid-template-columns: 2fr 2fr;
+        }
+      } 
+        
+      > div.actors{
+        > div > div{
+          display: grid; 
+          grid-template-columns: 2fr 2fr; 
+        }
+      }
     }
   }
 `;
