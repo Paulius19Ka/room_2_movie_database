@@ -17,9 +17,10 @@ const StyledMain = styled.main`
 `;
 
 const MainOutlet = () => {
+
   return (
     <>
-      <Header onThemeToggle={() => {}} />
+      <Header />
       <StyledMain>
         <Outlet />
       </StyledMain>

@@ -16,14 +16,14 @@ const StyledLogin = styled.section`
 
   >h2 {
     text-align: center;
-    color: yellow;
+    color: white;
   }
 
   >form {
     display: grid;
     flex-direction: column;
     align-items: flex-start;
-    color: yellow;
+    color: white;
     width: 300px;
 
     input[type="text"],
@@ -41,23 +41,29 @@ const StyledLogin = styled.section`
         font-size: 12px;
       }
     }
-
-    >input[type="submit"] {
-      color: yellow;
-    }
-
   }
   > a {
     margin-top: 12px;
     color: yellow;
     font-size: 14px;
     text-decoration: underline;
+    margin-top: 20px;
 
     &:hover {
       text-decoration: underline;
       color: gold;
     }
   }
+  >a.homeLink{
+    color: white;
+    border: 1px solid white;
+    border-radius: 20px;
+    padding: 5px;
+    text-decoration: none;
+    width: 70px;
+    text-align: center;
+    margin-top: 20px;
+  } 
 `
 
 const Login = () => {
@@ -119,57 +125,58 @@ const Login = () => {
         <SkeletonBlock variant="login" />
       ) : (
         <>
-      <form onSubmit={formik.handleSubmit}>
-        <div>
-          <label
-            htmlFor="email"
-          >Email: </label>
-          <input
-            type="text"
-            name='email' id='email'
-            placeholder='Enter your email'
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
+          <form onSubmit={formik.handleSubmit}>
+            <div>
+              <label
+                htmlFor="email"
+              >Email: </label>
+              <input
+                type="text"
+                name='email' id='email'
+                placeholder='Enter your email'
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              {
+                formik.errors.email && formik.touched.email &&
+                <p>{formik.errors.email}</p>
+              }
+            </div>
+            <div>
+              <label
+                htmlFor="password"
+              >Password: </label>
+              <input
+                type="password"
+                name='password' id='password'
+                placeholder='Enter your password'
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              {
+                formik.errors.password && formik.touched.password &&
+                <p>{formik.errors.password}</p>
+              }
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                name="stayLoggedIn" id="stayLoggedIn"
+                checked={formik.values.stayLoggedIn}
+                onChange={formik.handleChange}
+              />
+              <label htmlFor="stayLoggedIn" className='loggedIn'>Stay Logged In</label>
+            </div>
+            <input type="submit" value="Log In" />
+          </form>
           {
-            formik.errors.email && formik.touched.email &&
-            <p>{formik.errors.email}</p>
+            error && <p>{error}</p>
           }
-        </div>
-        <div>
-          <label
-            htmlFor="password"
-          >Password: </label>
-          <input
-            type="password"
-            name='password' id='password'
-            placeholder='Enter your password'
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          {
-            formik.errors.password && formik.touched.password &&
-            <p>{formik.errors.password}</p>
-          }
-        </div>
-        <div>
-          <input
-            type="checkbox"
-            name="stayLoggedIn" id="stayLoggedIn"
-            checked={formik.values.stayLoggedIn}
-            onChange={formik.handleChange}
-          />
-          <label htmlFor="stayLoggedIn" className='loggedIn'>Stay Logged In</label>
-        </div>
-        <input type="submit" value="Login" />
-      </form>
-      {
-        error && <p>{error}</p>
-      }
-      <Link to="/register">Don't have an account yet? Go create one.</Link>
-      </>
+          <Link to="/register">Don't have an account yet? Go create one.</Link>
+          <Link to="/" className='homeLink'>Home</Link>
+        </>
       )}
     </StyledLogin>
   );

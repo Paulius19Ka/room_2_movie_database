@@ -20,12 +20,14 @@ export type User = {
   passwordText: string,
   dob: string,
   profilePicture: string,
-  role: "admin" | "user"
+  role: "admin" | "user",
+  watchlistItems: string[]
 };
 
 export type UsersReducerActionTypes =
   { type: 'setData', data: User[] } |
-  { type: 'addUser', newUser: User };
+  { type: 'addUser', newUser: User } |
+  { type: 'addToWatchlist', movieId: Movie["id"], userId: User['id'] }
 
 export type UsersContextTypes = {
   users: User[],
@@ -34,3 +36,7 @@ export type UsersContextTypes = {
   dispatch: React.Dispatch<UsersReducerActionTypes>
 };
 
+export type ThemeContextTypes = {
+  theme: string,
+  themeToggle: () => void
+}
