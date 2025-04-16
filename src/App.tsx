@@ -10,6 +10,7 @@ import SpecificMoviePage from "./pages/SpecificMoviePage"
 import { useContext } from "react"
 import UsersContext from "./contexts/UsersContext"
 import { UsersContextTypes } from "./types"
+import Credits from "./pages/Credits"
 
 const App = () => {
 
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="/add" element={loggedInUser?.role === 'admin' ? <AddMovie /> : <Navigate to='/' replace />} />
           <Route path="edit/:id" element={loggedInUser?.role === 'admin' ? <EditMovie /> : <Navigate to='/' replace />} />
           <Route path=":id" element={<SpecificMoviePage />} />
+          <Route path=":id/credits" element={<Credits />} />
         </Route>
       </Routes>
     </>

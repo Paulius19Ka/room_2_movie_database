@@ -169,9 +169,9 @@ const SpecificMoviePage = () => {
               <h2>{movie.title}</h2>
               <div>
                 <span>{movie.releaseYear}</span>
-                <span>⬩</span>
+                <span> ⬩ </span>
                 <span>{movie.eirinCategory}</span>
-                <span>⬩</span>
+                <span> ⬩ </span>
                 <span>{Math.floor(movie.length / 60)}h {movie.length % 60}m</span>
               </div>
             </div>
@@ -221,6 +221,9 @@ const SpecificMoviePage = () => {
                     movie.castAndCrew.actors.slice(0, 3).map((actor, i) => <span key={i}>{actor.name}</span>)
                   }
                 </div>
+              </div>
+              <div className="cast">
+                <Link to={`/${id}/credits`}>Full Cast</Link>
               </div>
             </div>
             <div className="movieButtons">
