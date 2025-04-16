@@ -258,22 +258,22 @@ const SpecificMoviePage = () => {
   const { loggedInUser } = useContext(UsersContext) as UsersContextTypes;
   const navigate = useNavigate();
 
-    useEffect(() => {
-      if(id){
-        const foundMovie = findMovie(id);
-        if(foundMovie && typeof foundMovie === 'object'){
-          setMovie(foundMovie);
-        }
-      }
-      // console.log(movie);
-    }, [id, findMovie, movie]);
-
-    const deleteHandler = () => {
-      if(id){
-        deleteMovie(id);
-        navigate('/');
+  useEffect(() => {
+    if(id){
+      const foundMovie = findMovie(id);
+      if(foundMovie && typeof foundMovie === 'object'){
+        setMovie(foundMovie);
       }
     }
+    // console.log(movie);
+  }, [id, findMovie, movie]);
+
+  const deleteHandler = () => {
+    if(id){
+      deleteMovie(id);
+      navigate('/');
+    }
+  }
 
   return (
     <StyledSection>
