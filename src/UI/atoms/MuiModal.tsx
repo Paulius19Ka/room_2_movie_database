@@ -228,9 +228,10 @@ const MuiModal = (props: Props) => {
                 </div>
                 <p>{props.movie.description}</p>
                 <div className='buttons'>
-                  <button>+ Watchlist</button>
+                  <button onClick={addToWatchlist}>+ Watchlist</button>
                   <button onClick={handleClose}>Close</button>
                 </div>
+                {watchlistMessage && <div className="message">{watchlistMessage}</div>}
               </StyledInfoDiv> :
               props.movie && props.btnText === 'trailerIcon' ?
               <>IFRAME FOR TRAILER HERE</> :

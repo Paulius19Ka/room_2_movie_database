@@ -18,6 +18,7 @@ const ThemeProvider = ({ children }: ChildrenProp) => {
     document.documentElement.style.setProperty('--background-main', theme === 'dark' ? '#242424' : '#f3f3f3');
     document.documentElement.style.setProperty('--background-secondary', theme === 'dark' ? '#131313' : '#ffffff');
     document.documentElement.style.setProperty('--hover-main', theme === 'dark' ? '#4d4d4d' : '#d1d1d1');
+    document.documentElement.style.setProperty('--skeleton-main', theme === 'dark' ? '#414141' : '#b1b1b1');
   }, [theme]);
 
   return (

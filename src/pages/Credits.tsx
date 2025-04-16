@@ -214,8 +214,8 @@ const Credits = () => {
               <h4>Written by</h4>
               <div>
                 {
-                  movie.castAndCrew.writers.map(writer => (
-                    <div>
+                  movie.castAndCrew.writers.map((writer, i) => (
+                    <div key={i}>
                       <span>{writer.name}</span>
                       <div>
                         <span>...</span>
@@ -230,8 +230,8 @@ const Credits = () => {
               <h4>Cast</h4>
               <div>
                 {
-                  movie.castAndCrew.actors.map(actor => (
-                    <div>
+                  movie.castAndCrew.actors.map((actor, i) => (
+                    <div key={i}>
                       <div>
                         <img src={actor.actorPhoto} alt={actor.name} />
                         <span>{actor.name}</span>

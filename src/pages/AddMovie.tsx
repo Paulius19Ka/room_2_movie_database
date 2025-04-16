@@ -72,7 +72,7 @@ const AddMovie = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true); //
   useEffect(() => { // 🆕
-    const timer = setTimeout(() => setLoading(false), 1000);
+    const timer = setTimeout(() => setLoading(false), 50);
     return () => clearTimeout(timer);
   }, []);
 
@@ -460,7 +460,7 @@ const AddMovie = () => {
                 </>
               )}
             />
-            <ErrorMessage name='castAndCrew.writers' component='p' />
+            {/* <ErrorMessage name='castAndCrew.writers' component='p' /> */}
           </div>
           {/* actors input fields */}
           <div>

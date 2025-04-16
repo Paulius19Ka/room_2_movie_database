@@ -3424,7 +3424,9 @@
         "12",
         "1",
         "8",
-        "2"
+        "2",
+        "6529089b-2e3c-43d1-a21f-7e0daccae3b4",
+        "9"
       ]
     },
     {
@@ -3450,6 +3452,17 @@
       "dob": "2010-02-02",
       "profilePicture": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg",
       "passwordText": "Saule123!",
+      "role": "user"
+    },
+    {
+      "id": "8015fe21-6c27-4cef-9933-db4239b3412c",
+      "username": "testUser1",
+      "email": "testuser1@gmai.com",
+      "password": "$2b$10$Vioypo6ItdTHwYGo8pqxUe7hwpLTbA/tWMUbYyD3VfN60QA1M30oq",
+      "dob": "1993-03-08",
+      "profilePicture": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg",
+      "watchlistItems": [],
+      "passwordText": "Qwerty1!",
       "role": "user"
     }
   ]

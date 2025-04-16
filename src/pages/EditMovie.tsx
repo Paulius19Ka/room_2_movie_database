@@ -86,7 +86,7 @@ const EditMovie = () => {
         setMovie(foundMovie);
       }
     }
-    const timer = setTimeout(() => setLoading(false), 1000); 
+    const timer = setTimeout(() => setLoading(false), 50);
     return () => clearTimeout(timer);
   }, [id, findMovie]);
 
