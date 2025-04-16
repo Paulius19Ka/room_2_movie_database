@@ -182,7 +182,7 @@ const MovieCard = ({ data }: Props) => {
         }
         <StarBorderIcon /> {/* add rating functionality here */}
       </div>
-      <h3><Link to={`${data.id}`}>{data.title}</Link></h3>
+      <h3><Link to={`/${data.id}`}>{data.title}</Link></h3>
       <button onClick={addToWatchlist}>+ Watchlist</button>
       {watchlistMessage && <span style={{ color: 'yellow', fontWeight: 'bold' }}>{watchlistMessage}</span>}
       <div className="info">
