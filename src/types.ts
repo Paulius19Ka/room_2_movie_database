@@ -34,3 +34,7 @@ export type UsersContextTypes = {
   dispatch: React.Dispatch<UsersReducerActionTypes>
 };
 
+export type ThemeContextTypes = {
+  theme: string,
+  themeToggle: () => void
+}

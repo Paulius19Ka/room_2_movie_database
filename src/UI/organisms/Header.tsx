@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { NavLink as RouterLink } from "react-router";
 import { useContext } from "react";
 import UsersContext from "../../contexts/UsersContext";
+import ThemeContext from "../../contexts/ThemeContext";
+import { ThemeContextTypes } from "../../types";
 // import { User } from "../../types";
 
 const HeaderWrapper = styled.header`
@@ -100,11 +102,12 @@ const Avatar = styled.div`
   }
 `;
 
-const Header = ({ onThemeToggle }: { onThemeToggle: () => void }) => {
+const Header = () => {
   const { loggedInUser } = useContext(UsersContext)!;
 
   const isLoggedIn = !!loggedInUser;
   // const isAdmin = loggedInUser?.role === "admin";
+  const { themeToggle } = useContext(ThemeContext) as ThemeContextTypes;
 
   return (
     <HeaderWrapper>
@@ -186,7 +189,7 @@ const Header = ({ onThemeToggle }: { onThemeToggle: () => void }) => {
           </Avatar>
         )}
 
-        <IconButton onClick={onThemeToggle}>🌓</IconButton>
+        <IconButton onClick={themeToggle}>🌓</IconButton>
       </DesktopSection>
 
       {/* Mobile */}
