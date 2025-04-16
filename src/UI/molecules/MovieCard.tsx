@@ -73,8 +73,6 @@ const MovieCard = ({ data }: Props) => {
   const { loggedInUser, dispatch } = useContext(UsersContext) as UsersContextTypes;
   const navigate = useNavigate();
   const addToWatchlist = () => {
-    console.log("Adding to watchlist", loggedInUser?.id, data.id);
-
     if (!loggedInUser) {
       navigate('/login');
       return;
