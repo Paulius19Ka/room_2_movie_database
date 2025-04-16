@@ -70,21 +70,34 @@ const StyledSection = styled.section`
       > div{
         display: flex;
         flex-direction: column;
-        
-
-        > div{
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
       }
     }
 
     > div.director{
 
       > div{
-        flex-direction: row;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+
+        > div{
+          display: flex;
+          align-items: center;
+          gap: 5px;
+        }
+      }
+    }
+
+    > div.writers{
+      
+      >div > div{
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        }
+     
+      > div > div > div{
+        display: flex;
+        align-items: center;
+        gap: 5px; 
       }
     }
 
@@ -93,9 +106,12 @@ const StyledSection = styled.section`
       > div{
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 5px;
 
         > div{
+
+        display: grid;
+        grid-template-columns: 1fr 2fr;
 
           padding-right: 5px;
 
