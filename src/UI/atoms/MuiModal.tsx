@@ -9,6 +9,10 @@ import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import { Movie } from '../../movieTypes';
 import styled from 'styled-components';
 import { Link } from 'react-router';
+import { useContext } from 'react';
+import UsersContext from '../../contexts/UsersContext';
+import { UsersContextTypes } from '../../types';
+import { useNavigate } from 'react-router';
 import StarIcon from '@mui/icons-material/Star';
 
 type Props = {
@@ -109,12 +113,48 @@ const StyledInfoDiv = styled.div`
       color: white;
     }
   }
+
+  > .message {
+    color: yellow;
+    margin-top: 10px;
+    font-size: 1em;
+  }
+
 `;
 
-const MuiModal = ( props : Props) => {
+const MuiModal = (props: Props) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const { loggedInUser, dispatch } = useContext(UsersContext) as UsersContextTypes; // Access context
+  const navigate = useNavigate();
+  const [watchlistMessage, setWatchlistMessage] = React.useState<string>('');
+
+
+  const addToWatchlist = () => {
+    if (!loggedInUser) {
+      navigate('/login');
+      return;
+    }
+
+    const movieId = props.movie.id;
+    const alreadyInWatchlist = loggedInUser.watchlistItems?.includes(movieId);
+
+    if (alreadyInWatchlist) {
+      setWatchlistMessage('Already in Watchlist');
+    } else {
+      dispatch({
+        type: 'addToWatchlist',
+        userId: loggedInUser.id,
+        movieId: movieId
+      });
+      setWatchlistMessage('Added to Watchlist');
+    }
+    setTimeout(() => {
+      setWatchlistMessage('');
+      handleClose();
+    }, 2000);
+  };
 
   return (
     <div>
@@ -136,41 +176,43 @@ const MuiModal = ( props : Props) => {
           <Box sx={style}>
             {
               props.btnText === 'Delete' ?
-              <>
-                <Typography id="transition-modal-title" variant="h6" component="h2">
-                  Are you sure you want to {props.btnText.toLowerCase()} the {props.type} "{props.name}"?
-                </Typography>
-                <Button onClick={() => props.function()}>{props.btnText}</Button>
-                <Button onClick={handleClose}>Cancel</Button>
-              </> : 
-              props.movie && props.btnText === 'infoIcon' ?
-              <StyledInfoDiv>
-                <div>
-                  <img src={props.movie.photos.poster[0]} alt={props.movie.title} />
-                  <div>
-                    <Typography id="transition-modal-title" variant="h6" component="h2">
-                      <Link to={`/${props.movie.id}`}>{props.movie.title}</Link>
-                    </Typography>
+                <>
+                  <Typography id="transition-modal-title" variant="h6" component="h2">
+                    Are you sure you want to {props.btnText.toLowerCase()} the {props.type} "{props.name}"?
+                  </Typography>
+                  <Button onClick={() => props.function()}>{props.btnText}</Button>
+                  <Button onClick={handleClose}>Cancel</Button>
+                </> :
+                props.movie && props.btnText === 'infoIcon' ?
+                  <StyledInfoDiv>
                     <div>
-                      <div className='info'>
-                        <span>{props.movie.releaseYear}</span>
-                        <span>{props.movie.length} min</span>
-                        <span>{props.movie.eirinCategory}</span>
+                      <img src={props.movie.photos.poster[0]} alt={props.movie.title} />
+                      <div>
+                        <Typography id="transition-modal-title" variant="h6" component="h2">
+                          <Link to={`/${props.movie.id}`}>{props.movie.title}</Link>
+                        </Typography>
+                        <div>
+                          <div className='info'>
+                            <span>{props.movie.releaseYear}</span>
+                            <span>{props.movie.length} min</span>
+                            <span>{props.movie.eirinCategory}</span>
+                          </div>
+                          <span className='genres'>{props.movie.genres.join(' ⬩ ')}</span>
+                        </div>
+                        <span>{props.movie.IMDB?.totalScore}/10</span>
                       </div>
-                      <span className='genres'>{props.movie.genres.join(' ⬩ ')}</span>
+                      <span><StarIcon />{props.movie.IMDB?.totalScore}/10</span>
                     </div>
-                    <span><StarIcon />{props.movie.IMDB?.totalScore}/10</span>
-                  </div>
-                </div>
-                <p>{props.movie.description}</p>
-                <div className='buttons'>
-                  <button>+ Watchlist</button>
-                  <button onClick={handleClose}>Close</button>
-                </div>
-              </StyledInfoDiv> :
-              props.movie && props.btnText === 'trailerIcon' ?
-              <>IFRAME FOR TRAILER HERE</> :
-              <p>Loading...</p>
+                    <p>{props.movie.description}</p>
+                    <div className='buttons'>
+                      <button onClick={addToWatchlist}>+ Watchlist</button>
+                      <button onClick={handleClose}>Close</button>
+                    </div>
+                    {watchlistMessage && <div className="message">{watchlistMessage}</div>}
+                  </StyledInfoDiv> :
+                  props.movie && props.btnText === 'trailerIcon' ?
+                    <>IFRAME FOR TRAILER HERE</> :
+                    <p>Loading...</p>
             }
           </Box>
         </Fade>
