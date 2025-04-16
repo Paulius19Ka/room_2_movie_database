@@ -6,20 +6,42 @@ import { Movie } from "../movieTypes";
 import styled from "styled-components";
 
 const StyledSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  span{
+    font-size: 1.1rem;
+  }
+
   > div.movieInfo{
     display: flex;
     justify-content: flex-start;
-    gap: 20px;
+    gap: 10px;
 
     > img{
       width: 100px;
       height: 150px;
       object-fit: cover;
+      border-radius: 5px;
     }
     > div{
 
       > h1{
         margin: 0;
+        font-size: 1.6rem;
+      }
+
+      > button{
+        border: none;
+        border-radius: 10px;
+        padding: 0 10px;
+        font-size: 1.1rem;
+
+        &:hover{
+          cursor: pointer;
+          background-color: #171717;
+        }
       }
 
       > div{
@@ -27,10 +49,77 @@ const StyledSection = styled.section`
         align-items: center;
         gap: 10px;
 
-        > h3{
+        > h3, span{
           margin: 0;
+          font-size: 1.3rem;
         }
       }
+    }
+  }
+
+  > div.cast{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    > div.director, div.writers, div.actors{
+      border: 1px dashed grey;
+      border-radius: 7px;
+      padding: 5px 10px;
+      
+      > div{
+        display: flex;
+        flex-direction: column;
+        
+
+        > div{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
+    }
+
+    > div.director{
+
+      > div{
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    > div.actors{
+
+      > div{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        > div{
+
+          padding-right: 5px;
+
+          &:nth-child(odd){
+            background-color: #171717;
+          }
+
+          > div{
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            > img{
+              width: 40px;
+              height: 40px;
+              object-fit: cover;
+            }
+          }
+        }
+      }
+    }
+
+    h4{
+      margin: 0;
     }
   }
 `;
@@ -73,8 +162,10 @@ const Credits = () => {
               <h4>Directed by</h4>
               <div>
                 <span>{movie.castAndCrew.director}</span>
-                <span>...</span>
-                <span>{Object.keys(movie.castAndCrew)[0]}</span>
+                <div>
+                  <span>...</span>
+                  <span>{Object.keys(movie.castAndCrew)[0]}</span>
+                </div>
               </div>
             </div>
             <div className="writers">
@@ -84,8 +175,10 @@ const Credits = () => {
                   movie.castAndCrew.writers.map(writer => (
                     <div>
                       <span>{writer.name}</span>
-                      <span>...</span>
-                      <span>{writer.role}</span>
+                      <div>
+                        <span>...</span>
+                        <span>{writer.role}</span>
+                      </div>
                     </div>
                   ))
                 }
