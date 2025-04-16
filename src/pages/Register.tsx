@@ -4,9 +4,59 @@ import { v4 as generatedId } from "uuid";
 import { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router";
 import * as Yup from 'yup';
+import styled from "styled-components";
 
 import UsersContext from "../contexts/UsersContext";
 import { User, UsersContextTypes } from "../types";
+
+const StyledRegister = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  >h2 {
+    text-align: center;
+    color: yellow;
+  }
+
+  >form {
+    display: grid;
+    flex-direction: column;
+    align-items: flex-start;
+    color: yellow;
+    width: 300px;
+
+    input[type="text"],
+    input[type="password"],
+    input[type="submit"],
+    input[type="email"],
+    input[type="date"],
+    input[type="url"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px;
+    }
+    
+    >div {
+      margin-bottom: 10px;
+    }
+
+    >input[type="submit"] {
+      color: yellow;
+    }
+  }
+  > a {
+    margin-top: 12px;
+    color: yellow;
+    font-size: 14px;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: underline;
+      color: gold;
+    }
+  }
+`
 
 const Register = () => {
 
@@ -85,7 +135,7 @@ const Register = () => {
   });
 
   return (
-    <section>
+    <StyledRegister>
       <h2>Register</h2>
       <form onSubmit={formik.handleSubmit}>
         <div>
@@ -178,13 +228,13 @@ const Register = () => {
             <p>{formik.errors.profilePicture}</p>
           }
         </div>
-        <button type="submit">Register</button>
+        <input type="submit" value="Register" />
       </form>
       {
         error && <p>{error}</p>
       }
       <Link to="/login">Aleady have an account? Go login.</Link>
-    </section>
+    </StyledRegister>
   );
 }
 
