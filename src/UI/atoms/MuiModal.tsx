@@ -97,12 +97,20 @@ const MuiModal = (props: Props) => {
       navigate('/login');
       return;
     }
-    dispatch({
-      type: 'addToWatchlist',
-      userId: loggedInUser.id,
-      movieId: props.movie.id
-    });
-    setWatchlistMessage('Added to Watchlist');
+
+    const movieId = props.movie.id;
+    const alreadyInWatchlist = loggedInUser.watchlistItems?.includes(movieId);
+
+    if (alreadyInWatchlist) {
+      setWatchlistMessage('Already in Watchlist');
+    } else {
+      dispatch({
+        type: 'addToWatchlist',
+        userId: loggedInUser.id,
+        movieId: movieId
+      });
+      setWatchlistMessage('Added to Watchlist');
+    }
     setTimeout(() => {
       setWatchlistMessage('');
       handleClose();
