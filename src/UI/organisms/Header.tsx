@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { NavLink as RouterLink } from "react-router";
 import { useContext } from "react";
 import UsersContext from "../../contexts/UsersContext";
+import ThemeContext from "../../contexts/ThemeContext";
+import { ThemeContextTypes } from "../../types";
 // import { User } from "../../types";
 import { useNavigate } from "react-router";
 
@@ -127,7 +129,7 @@ const Avatar = styled.div`
   }
 `;
 
-const Header = ({ onThemeToggle }: { onThemeToggle: () => void }) => {
+const Header = () => {
   const { loggedInUser, setLoggedInUser } = useContext(UsersContext)!;
 
   const isLoggedIn = !!loggedInUser;
@@ -138,6 +140,8 @@ const Header = ({ onThemeToggle }: { onThemeToggle: () => void }) => {
     localStorage.removeItem('loggedInUser');
     navigate('/');
   };
+
+  const { themeToggle } = useContext(ThemeContext) as ThemeContextTypes;
 
   return (
     <HeaderWrapper>
@@ -223,7 +227,7 @@ const Header = ({ onThemeToggle }: { onThemeToggle: () => void }) => {
             <LogoutButton onClick={handleLogout}>Log Out</LogoutButton> :
             <></>
         }
-        <IconButton onClick={onThemeToggle}>🌓</IconButton>
+        <IconButton onClick={themeToggle}>🌓</IconButton>
       </DesktopSection>
 
       {/* Mobile */}

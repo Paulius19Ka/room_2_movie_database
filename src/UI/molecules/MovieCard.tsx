@@ -17,7 +17,7 @@ type Props = {
 }
 
 const StyledDiv = styled.div`
-  background-color: #131313;
+  background-color: var(--background-secondary);
   width: 200px;
   height: 450px;
   border-radius: 10px;
@@ -45,7 +45,7 @@ const StyledDiv = styled.div`
       text-overflow: ellipsis;
 
       text-decoration: none;
-      color: white; 
+      color: var(--text-primary); 
     }
 
     > a:hover{
@@ -59,7 +59,7 @@ const StyledDiv = styled.div`
 
   > button{
     border: none;
-    background-color:rgba(121, 121, 121, 0.15); 
+    background-color:#79797926;
     border-radius: 9999px;
     padding: 10px;
     width: 90%;
@@ -69,7 +69,7 @@ const StyledDiv = styled.div`
   }
 
   > button:hover{
-    background-color: rgba(59, 74, 102, 0.46);
+    background-color: #3b4a6675;
   }
 
   > img{
@@ -98,12 +98,12 @@ const StyledDiv = styled.div`
     }
       
     > svg{
-      color: rgba(60, 109, 214, 0.9); 
+      color: #3c6dd6e5; 
     }
     
     > svg:hover{
-      color: white; 
-      background-color:rgba(121, 121, 121, 0.15);
+      color: var(--text-primary); 
+      background-color:#79797926;
     }
 
   }
@@ -122,21 +122,21 @@ const StyledDiv = styled.div`
       padding: 5px;
 
       text-decoration: none;
-      color: white;
+      color: var(--text-secondary);
     }
 
     > a:hover{
-      background-color:rgba(121, 121, 121, 0.15); 
+      background-color:#79797926; 
       border-radius: 9999px;
       padding: 5px;
     }
 
     > div > button > svg{
-      color: white; 
+      color: var(--text-secondary);
     }
     
     > div > button > svg:hover{
-      background-color:rgba(121, 121, 121, 0.15);
+      background-color:#79797926;
     }
 
     & :nth-child(3){
