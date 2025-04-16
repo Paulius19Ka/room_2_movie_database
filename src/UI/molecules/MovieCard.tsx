@@ -70,8 +70,21 @@ const StyledDiv = styled.div`
 
 const MovieCard = ({ data }: Props) => {
 
-  const { loggedInUser } = useContext(UsersContext) as UsersContextTypes;
+  const { loggedInUser, dispatch } = useContext(UsersContext) as UsersContextTypes;
   const navigate = useNavigate();
+  const addToWatchlist = () => {
+    console.log("Adding to watchlist", loggedInUser?.id, data.id);
+
+    if (!loggedInUser) {
+      navigate('/login');
+      return;
+    }
+    dispatch({
+      type: 'addToWatchlist',
+      userId: loggedInUser.id,
+      movieId: data.id
+    });
+  };
 
   return (
     <StyledDiv>
@@ -81,29 +94,25 @@ const MovieCard = ({ data }: Props) => {
         <StarBorderIcon /> {/* add rating functionality here */}
       </div>
       <h3><Link to={`${data.id}`}>{data.title}</Link></h3>
-      {
-        loggedInUser ?
-        <button>+ Watchlist</button> :
-        <button onClick={() => navigate('/login')}>+ Watchlist</button>
-      }
+      <button onClick={addToWatchlist}>+ Watchlist</button>
       <div className="info">
         <Link to={data.videos.trailers[0]} target="_blank"><PlayArrowIcon />Trailer</Link>
         {/* <Link to={`${data.id}`}><InfoOutlineIcon /></Link> */}
         <MuiModal
           btnText='infoIcon'
-          function={() => {}}
+          function={() => { }}
           type='info'
           name={data ? data.title : ''}
           movie={data}
         />
         {
           loggedInUser?.role === 'admin' ?
-          <Link to={`edit/${data.id}`}><EditIcon /></Link> :
-          <></>
+            <Link to={`edit/${data.id}`}><EditIcon /></Link> :
+            <></>
         }
       </div>
     </StyledDiv>
   );
 }
- 
+
 export default MovieCard;

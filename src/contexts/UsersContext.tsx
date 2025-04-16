@@ -54,7 +54,6 @@ const UsersProvider = ({ children }: ChildrenProp) => {
         fetch(`http://localhost:8080/users`)
             .then(res => res.json())
             .then((data: User[]) => {
-                console.log("Fetched users:", data);
                 dispatch({
                     type: 'setData',
                     data: data
@@ -63,7 +62,6 @@ const UsersProvider = ({ children }: ChildrenProp) => {
         const foundUser = localStorage.getItem('loggedInUser');
         if (foundUser) {
             const parsed = JSON.parse(foundUser);
-            console.log("Loaded loggedInUser from localStorage:", parsed);
             setLoggedInUser(parsed);
         }
     }, []);
