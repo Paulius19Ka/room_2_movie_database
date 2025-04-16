@@ -107,6 +107,23 @@ const StyledSection = styled.section`
             color: white;
           }
         }
+
+        > div.cast{
+          
+          > a{
+            color: white;
+            text-decoration: none;
+            border: 1px solid grey;
+            border-radius: 15px;
+            padding: 0px 10px;
+
+            &:hover{
+              cursor: pointer;
+              color: #f3ce13;
+              background-color: #4d4d4d;
+            }
+          }
+        }
       }
 
       > div.movieButtons{
@@ -128,6 +145,105 @@ const StyledSection = styled.section`
           line-height: 1;
           width: 100%;
           text-align: center;
+
+          &:hover{
+            background-color: #d4b413;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    > div.movieWrapper{
+      width: 100%;
+
+      > div.movieHeadline{
+        flex-direction: column;
+        align-items: flex-start;
+
+        > div{
+
+          > h2{
+            font-size: 1.7rem;
+          }
+
+          > div{
+
+            > span{
+              font-size: 1.1rem;
+            }
+          }
+        }
+
+        > div.reviews{
+          flex-direction: column;
+          gap: 5px;
+
+          > div.imdbScore{
+
+            > span:nth-child(1){
+              display: none;
+            }
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 10px;
+          }
+          > div.metaScore{
+            display: none;
+          }
+        }
+      }
+
+      > div.movieMedia{
+        flex-direction: column;
+
+        > img{
+          width: 100%;
+          height: auto;
+        }
+        > iframe{
+          width: 100%;
+          height: auto;
+        }
+      }
+
+      > div.movieBottom{
+        flex-direction: column;
+        align-items: center;
+
+        p, a, span, button{
+          font-size: 1.1rem;
+        }
+
+        > div.movieInfo{
+          width: 100%;
+
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+
+          > div.movieGenres{
+            place-self: center;
+          }
+
+          > div.movieDirector, div.movieWriters, div.movieActors{
+            gap: 5px;
+
+            > div{
+              gap: 10px;
+
+              > span:nth-child(3){
+                display: none;
+              }
+            }
+          }
+        }
+
+        > div.movieButtons{
+          align-self: flex-start;
+
+          margin-top: 10px;
         }
       }
     }
