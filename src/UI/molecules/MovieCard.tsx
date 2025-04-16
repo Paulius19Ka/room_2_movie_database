@@ -139,6 +139,10 @@ const StyledDiv = styled.div`
       background-color:rgba(121, 121, 121, 0.15);
     }
 
+    & :nth-child(3){
+      display: none;
+    }
+
     }
 `;
 
