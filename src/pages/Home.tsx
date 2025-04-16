@@ -31,7 +31,7 @@ const Home = () => {
               key={movie.id}
             />
           ) :
-          <p>SKELETON HERE!!!!!!!!!</p>
+          <p>Loading...</p>
         }
       </StyledDiv>
     </section>
