@@ -8,6 +8,7 @@ import { MovieContextTypes } from "../types";
 import { AgeRating, Movie } from "../movieTypes";
 import MuiModal from "../UI/atoms/MuiModal";
 import styled from "styled-components";
+import SkeletonBlock from "../UI/atoms/SkeletonBlock"; //
 
 const StyledSection = styled.section`
   form{
@@ -76,7 +77,19 @@ const EditMovie = () => {
   const { id } = useParams();
   const { findMovie, editMovie, deleteMovie } = useContext(MoviesContext) as MovieContextTypes;
   const [movie, setMovie] = useState<Movie | undefined>(undefined);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  useEffect(() => {
+    if(id){
+      const foundMovie = findMovie(id);
+      if(foundMovie && typeof foundMovie === 'object'){
+        setMovie(foundMovie);
+      }
+    }
+    const timer = setTimeout(() => setLoading(false), 1000); 
+    return () => clearTimeout(timer);
+  }, [id, findMovie]);
+
 
   const initialValues: InitialValuesType = {
     id: '',
@@ -258,12 +271,14 @@ const EditMovie = () => {
 
   return (
     <StyledSection>
-      {
-        movie ?
+      {loading ? (
+        <SkeletonBlock variant="editMovie" /> // 🆕 show skeleton while loading
+      ):
+        movie ? (
         <div>
           <h2>Edit Movie</h2>
           <h3>{movie.title}</h3>
-          <Formik 
+          {<Formik 
             initialValues={initialValues}
             onSubmit={submitHandler}
             validationSchema={validSchema}
@@ -604,12 +619,13 @@ const EditMovie = () => {
                 />
               </div>
             </Form>
-          </Formik>
-        </div> :
-        <p>Loading...</p>
-      }
+          </Formik>}
+          </div>
+      ) : (
+        <p>Movie not found.</p>
+      )}
     </StyledSection>
   );
-}
- 
+};
+
 export default EditMovie;

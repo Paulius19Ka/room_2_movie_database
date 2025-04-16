@@ -1,9 +1,10 @@
 import { useFormik } from "formik";
 import bcrypt from "bcryptjs";
 import { v4 as generatedId } from "uuid";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router";
 import * as Yup from 'yup';
+import SkeletonBlock from '../UI/atoms/SkeletonBlock';
 
 import UsersContext from "../contexts/UsersContext";
 import { User, UsersContextTypes } from "../types";
@@ -13,6 +14,11 @@ const Register = () => {
   const { users, dispatch, setLoggedInUser } = useContext(UsersContext) as UsersContextTypes;
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true); 
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -86,6 +92,10 @@ const Register = () => {
   return (
     <section>
       <h2>Register</h2>
+      {loading ? (
+        <SkeletonBlock variant="register" /> 
+      ) : (
+        <>
       <form onSubmit={formik.handleSubmit}>
         <div>
           <label
@@ -183,6 +193,8 @@ const Register = () => {
         error && <p>{error}</p>
       }
       <Link to="/login">Aleady have an account? Go login.</Link>
+      </>
+      )}
     </section>
   );
 }
