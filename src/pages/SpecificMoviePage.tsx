@@ -104,7 +104,7 @@ const SpecificMoviePage = () => {
           <div className="movieInfo">
             <div className="movieGenres">
               {
-                movie.genres.map(genre => <span>{genre}</span>)
+                movie.genres.map((genre, i) => <span key={i}>{genre}</span>)
               }
             </div>
             <p>{movie.description}</p>
@@ -116,7 +116,7 @@ const SpecificMoviePage = () => {
               <span>Writers</span>
               <div>
                 {
-                  movie.castAndCrew.writers.slice(0, 3).map(writer => <span>{writer.name}</span>)
+                  movie.castAndCrew.writers.slice(0, 3).map((writer, i) => <span key={i}>{writer.name}</span>)
                 }
               </div>
             </div>
@@ -124,7 +124,7 @@ const SpecificMoviePage = () => {
               <span>Actors</span>
               <div>
                 {
-                  movie.castAndCrew.actors.slice(0, 3).map(actor => <span>{actor.name}</span>)
+                  movie.castAndCrew.actors.slice(0, 3).map((actor, i) => <span key={i}>{actor.name}</span>)
                 }
               </div>
             </div>
