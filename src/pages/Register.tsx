@@ -17,14 +17,14 @@ const StyledRegister = styled.section`
 
   >h2 {
     text-align: center;
-    color: yellow;
+    color: white;
   }
 
   >form {
     display: grid;
     flex-direction: column;
     align-items: flex-start;
-    color: yellow;
+    color: white;
     width: 300px;
 
     input[type="text"],
@@ -42,9 +42,6 @@ const StyledRegister = styled.section`
       margin-bottom: 10px;
     }
 
-    >input[type="submit"] {
-      color: yellow;
-    }
   }
   > a {
     margin-top: 12px;
@@ -57,6 +54,17 @@ const StyledRegister = styled.section`
       color: gold;
     }
   }
+
+  >a.homeLink{
+    color: white;
+    border: 1px solid white;
+    border-radius: 20px;
+    padding: 5px;
+    text-decoration: none;
+    width: 70px;
+    text-align: center;
+    margin-top: 20px;
+  } 
 `
 
 const Register = () => {
@@ -154,6 +162,7 @@ const Register = () => {
               <input
                 type="text"
                 name="username" id="username"
+                placeholder="Create username"
                 value={formik.values.username}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -169,6 +178,7 @@ const Register = () => {
               <input
                 type="email"
                 name="email" id="email"
+                placeholder='Enter your email'
                 value={formik.values.email}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -184,6 +194,7 @@ const Register = () => {
               <input
                 type="password"
                 name="password" id="password"
+                placeholder='Create password'
                 value={formik.values.password}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -199,6 +210,7 @@ const Register = () => {
               <input
                 type="password"
                 name="passwordRepeat" id="passwordRepeat"
+                placeholder='Repeat password'
                 value={formik.values.passwordRepeat}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -229,6 +241,7 @@ const Register = () => {
               <input
                 type="url"
                 name="profilePicture" id="profilePicture"
+                placeholder="Enter a valid URL"
                 value={formik.values.profilePicture}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -244,6 +257,7 @@ const Register = () => {
             error && <p>{error}</p>
           }
           <Link to="/login">Aleady have an account? Go login.</Link>
+          <Link to="/" className='homeLink'>Home</Link>
         </>
       )}
     </StyledRegister>
